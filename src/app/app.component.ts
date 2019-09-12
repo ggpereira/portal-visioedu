@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'visioEdu-Portal';
+
+  // sidenavEvents(str) {
+  //   console.log(str);
+  // }
 }
