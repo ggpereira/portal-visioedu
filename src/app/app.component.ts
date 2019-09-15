@@ -7,7 +7,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'visioEdu-Portal';
-
+  titleChart = "Teste";
+  type = "BarChart";
+  myData = [
+    ['London', 8136000],
+    ['New York', 8538000],
+    ['Paris', 2244000],
+    ['Berlin', 3470000],
+    ['Kairo', 19500000],
+  ];
   // sidenavEvents(str) {
   //   console.log(str);
   // }

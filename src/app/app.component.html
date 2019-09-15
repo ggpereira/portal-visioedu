@@ -55,7 +55,11 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    Main Content
+    <google-chart
+      [title]="titleChart"
+      [type]="type"
+      [data]="myData">
+    </google-chart>
   </mat-sidenav-content>
 </mat-sidenav-container>
 

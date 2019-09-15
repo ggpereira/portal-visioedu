@@ -6,6 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material-module';
 
+import { GoogleChartsModule } from 'angular-google-charts';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -15,7 +17,8 @@ import { MaterialModule } from './material-module';
     AppRoutingModule,
     BrowserAnimationsModule,
     NoopAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    GoogleChartsModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
