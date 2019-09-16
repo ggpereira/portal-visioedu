@@ -5,6 +5,8 @@ import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material-module';
+import { MatCardModule } from '@angular/material';
+import { MatGridListModule } from '@angular/material';
 
 import { GoogleChartsModule } from 'angular-google-charts';
 
@@ -18,6 +20,8 @@ import { GoogleChartsModule } from 'angular-google-charts';
     BrowserAnimationsModule,
     NoopAnimationsModule,
     MaterialModule,
+    MatGridListModule,
+    MatCardModule,
     GoogleChartsModule.forRoot()
   ],
   providers: [],

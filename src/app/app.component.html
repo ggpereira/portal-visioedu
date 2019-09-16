@@ -55,11 +55,36 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <google-chart
-      [title]="titleChart"
-      [type]="type"
-      [data]="myData">
-    </google-chart>
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-card-title>Gráfico de Testes</mat-card-title>
+        <mat-card-subtitle>Teste</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <google-chart [type]="type" [data]="myData">
+        </google-chart>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-card-title>Gráfico de Testes</mat-card-title>
+        <mat-card-subtitle>Teste</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <google-chart [type]="type" [data]="myData">
+        </google-chart>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-card-title>Gráfico de Testes</mat-card-title>
+        <mat-card-subtitle>Teste</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <google-chart [type]="type" [data]="myData">
+        </google-chart>
+      </mat-card-content>
+    </mat-card>
   </mat-sidenav-content>
 </mat-sidenav-container>
 
