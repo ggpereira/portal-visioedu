@@ -8,9 +8,9 @@ import { MaterialModule } from './material-module';
 import { MatCardModule } from '@angular/material';
 import { MatGridListModule } from '@angular/material';
 import { MatTableModule } from '@angular/material';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material';
 
 import { GoogleChartsModule } from 'angular-google-charts';
 import { StatisticsComponent } from './statistics/statistics.component';
@@ -32,8 +32,8 @@ import { HomeComponent } from './home/home.component';
     MatCardModule,
     MatTableModule,
     MatFormFieldModule,
-    MatPaginatorModule,
     MatInputModule,
+    MatPaginatorModule,
     GoogleChartsModule.forRoot()
   ],
   providers: [],
