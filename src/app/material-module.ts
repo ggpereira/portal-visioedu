@@ -6,7 +6,12 @@ import {
     MatSidenavModule,
     MatListModule,
     MatButtonModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatGridListModule,
+    MatCardModule,
+    MatTableModule,
+    MatInputModule,
+    MatPaginatorModule
 } from '@angular/material';
 
 @NgModule({
@@ -16,7 +21,13 @@ import {
         MatSidenavModule,
         MatListModule,
         MatButtonModule,
-        MatFormFieldModule
+        MatFormFieldModule,
+        MatGridListModule,
+        MatCardModule,
+        MatTableModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatPaginatorModule
     ],
     exports: [
         MatToolbarModule,
@@ -24,7 +35,13 @@ import {
         MatSidenavModule,
         MatListModule,
         MatButtonModule,
-        MatFormFieldModule
+        MatFormFieldModule,
+        MatGridListModule,
+        MatCardModule,
+        MatTableModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatPaginatorModule
     ],
     providers: [],
 })
