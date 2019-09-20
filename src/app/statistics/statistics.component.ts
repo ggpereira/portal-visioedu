@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { StatisticsService } from '../shared/statistics.service';
+import { IEscolaStatistics } from '../shared/models/statisticsEscola';
+
 @Component({
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
@@ -7,19 +10,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StatisticsComponent implements OnInit {
 
-  titleChart = "Teste";
-  type = "BarChart";
-  myData = [
-    ['London', 8136000],
-    ['New York', 8538000],
-    ['Paris', 2244000],
-    ['Berlin', 3470000],
-    ['Kairo', 19500000],
-  ];
+  titleChart = 'Teste';
+  type = 'BarChart';
 
-  constructor() { }
+  dataEscolasStatistics: Array<IEscolaStatistics>;
+
+  myData = [];
+
+  constructor(private escolaService: StatisticsService) { }
 
   ngOnInit() {
+    this.escolaService.getEscolas().subscribe((data) => {
+      this.dataEscolasStatistics = data;
+      this.dataEscolasStatistics.forEach((statistics) => {
+        this.setData(statistics.estado, statistics.codigo);
+      });
+      console.log(this.myData);
+    });
   }
 
+  setData(estado, codigo) {
+    this.myData.push([{estado:estado, codigo:codigo}]);
+  }
 }

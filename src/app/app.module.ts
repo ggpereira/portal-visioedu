@@ -24,7 +24,6 @@ import { HomeComponent } from './home/home.component';
     BrowserAnimationsModule,
     NoopAnimationsModule,
     MaterialModule,
-
     GoogleChartsModule.forRoot()
   ],
   providers: [],

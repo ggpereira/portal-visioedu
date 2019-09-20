@@ -4,6 +4,11 @@
         <mat-card-subtitle>Teste</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
+        <div *ngFor="let data of myData">
+            <ul *ngFor="let teste of data">
+                <li>{{teste.estado}}</li>
+            </ul>
+        </div>
         <google-chart [type]="type" [data]="myData">
         </google-chart>
     </mat-card-content>
@@ -24,7 +29,7 @@
         <mat-card-subtitle>Teste</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-        <google-chart [type]="type" [data]="myData">
+        <google-chart [type]="type" [data]="myData" *ngIf="myData">
         </google-chart>
     </mat-card-content>
 </mat-card>
