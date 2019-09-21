@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Observable } from 'rxjs';
 import { StatisticsService } from '../shared/statistics.service';
 import { IEscolaStatistics } from '../shared/models/statisticsEscola';
 
@@ -15,21 +15,12 @@ export class StatisticsComponent implements OnInit {
 
   dataEscolasStatistics: Array<IEscolaStatistics>;
 
-  myData = [];
-
-  constructor(private escolaService: StatisticsService) { }
+  myData: Array<any>;
+  constructor(private stastisticService: StatisticsService) { }
 
   ngOnInit() {
-    this.escolaService.getEscolas().subscribe((data) => {
-      this.dataEscolasStatistics = data;
-      this.dataEscolasStatistics.forEach((statistics) => {
-        this.setData(statistics.estado, statistics.codigo);
-      });
-      console.log(this.myData);
+    this.stastisticService.getEscolas().subscribe((data) => {
+      this.myData = data;
     });
-  }
-
-  setData(estado, codigo) {
-    this.myData.push([{estado:estado, codigo:codigo}]);
   }
 }
