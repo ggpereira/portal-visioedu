@@ -6,10 +6,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material-module';
-
-import { GoogleChartsModule } from 'angular-google-charts';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { HomeComponent } from './home/home.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +24,7 @@ import { HomeComponent } from './home/home.component';
     BrowserAnimationsModule,
     NoopAnimationsModule,
     MaterialModule,
-    GoogleChartsModule.forRoot()
+    NgxChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

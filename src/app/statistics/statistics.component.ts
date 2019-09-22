@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { StatisticsService } from '../shared/statistics.service';
+import { StatisticsService } from '../services/statistics.service';
 import { IEscolaStatistics } from '../shared/models/statisticsEscola';
 
 @Component({

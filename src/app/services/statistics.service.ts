@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { IEscolaStatistics} from './models/statisticsEscola';
+import { IEscolaStatistics} from '../shared/models/statisticsEscola';
 import { environment } from '../../environments/environment';
 
 @Injectable({

@@ -1,11 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
-import { ViewChild } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 
-import { EscolaService } from '../shared/escola.service';
-import { IDataEscola, IEscola } from '../shared/models/escola';
+import { ILocation } from '../shared/models/location';
+import { LocationService } from '../services/location.service';
+import { ɵBrowserAnimationBuilder } from '@angular/platform-browser/animations';
 
 @Component({
   selector: 'app-home',
@@ -14,21 +11,40 @@ import { IDataEscola, IEscola } from '../shared/models/escola';
 })
 export class HomeComponent implements OnInit {
 
-  dataEscolas: IDataEscola;
+  local: ILocation;
+  showLegend = false;
+  colorScheme = {
+    domain: ['#65DD2E', '#1652E7', '#FE7103', '#F90522', '#7D05FC']
+  };
 
-  displayedColumns: string[] = ['co_entidade', 'no_entidade', 'qt_funcionarios', 'qt_salas_existentes'];
+  showLabels = true;
+  explodeSlices = false;
+  doughnut = false;
+  
+  single = [
+    {
+      "name": "Germany",
+      "value": 8940000
+    },
+    {
+      "name": "USA",
+      "value": 5000000
+    },
+    {
+      "name": "France",
+      "value": 7200000
+    },
+    {
+      "name": "Brasil",
+      "value":100000,
+    },
+  ];
 
-  dataSource: MatTableDataSource<IEscola>;
-
-  constructor(private escolaService: EscolaService){}
-
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  constructor(private locationService: LocationService){}
 
   ngOnInit() {
-    this.escolaService.getEscolas(40, 1).subscribe((data) => {
-      this.dataEscolas = data;
-      this.dataSource = new MatTableDataSource<IEscola>(this.dataEscolas.data);
-      this.dataSource.paginator = this.paginator;
+    this.locationService.getLocation().subscribe((dataLocal: ILocation) => {
+      this.local = dataLocal;
     });
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { IDataEscola } from './models/escola';
+import { IDataEscola } from '../shared/models/escola';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 

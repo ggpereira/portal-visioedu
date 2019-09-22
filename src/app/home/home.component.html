@@ -1,35 +1,14 @@
-<div class="list">
-  <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource">
-
-      <!-- Position Column -->
-      <ng-container matColumnDef="co_entidade">
-        <th mat-header-cell *matHeaderCellDef> Código Escola </th>
-        <td mat-cell *matCellDef="let element"> {{element.co_entidade}} </td>
-      </ng-container>
-
-      <!-- Name Column -->
-      <ng-container matColumnDef="no_entidade">
-        <th mat-header-cell *matHeaderCellDef> Nome da Escola </th>
-        <td mat-cell *matCellDef="let element"> {{element.no_entidade}} </td>
-      </ng-container>
-
-      <!-- Weight Column -->
-      <ng-container matColumnDef="qt_funcionarios">
-        <th mat-header-cell *matHeaderCellDef> Quantidade Funcionários </th>
-        <td mat-cell *matCellDef="let element"> {{element.qt_funcionarios}} </td>
-      </ng-container>
-
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="qt_salas_existentes">
-        <th mat-header-cell *matHeaderCellDef> Salas </th>
-        <td mat-cell *matCellDef="let element"> {{element.qt_salas_existentes}} </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-
-    <mat-paginator [pageSizeOptions]="[15, 20, 40]" showFirstLastButtons></mat-paginator>
-  </div>
-</div>
+<mat-card class="card">
+  <mat-card-header>
+    <mat-card-title>Gráfico de Testes</mat-card-title>
+    <mat-card-subtitle>Teste</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div id="pie-chart-parent">
+      <ngx-charts-pie-chart [scheme]="colorScheme" [results]="single" [legend]="showLegend"
+        [explodeSlices]="explodeSlices" [labels]="showLabels" [doughnut]="doughnut" [gradient]="gradient"
+        (select)="onSelect($event)">
+      </ngx-charts-pie-chart>
+    </div>
+  </mat-card-content>
+</mat-card>
