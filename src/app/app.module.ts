@@ -10,12 +10,14 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { HomeComponent } from './home/home.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
+import { SobreComponent } from './sobre/sobre.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     StatisticsComponent,
-    HomeComponent
+    HomeComponent,
+    SobreComponent
   ],
   imports: [
     HttpClientModule,
