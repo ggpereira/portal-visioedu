@@ -10,12 +10,14 @@ import { MaterialModule } from './material-module';
 import { GoogleChartsModule } from 'angular-google-charts';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { HomeComponent } from './home/home.component';
+import { SobreComponent } from './sobre/sobre.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     StatisticsComponent,
-    HomeComponent
+    HomeComponent,
+    SobreComponent
   ],
   imports: [
     HttpClientModule,
