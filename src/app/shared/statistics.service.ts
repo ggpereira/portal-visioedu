@@ -17,7 +17,7 @@ export class StatisticsService {
   // }
 
   getEscolas(): Observable<Array<any>> {
-    return this.http.get<Array<IEscolaStatistics>>(environment.host + 'escolas/estatisticas').pipe(
+    return this.http.get<Array<IEscolaStatistics>>(environment.host + 'estatisticas/escolas').pipe(
       map((res: IEscolaStatistics[]) => {
         const estatisticas = [];
 

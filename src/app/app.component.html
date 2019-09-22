@@ -1,5 +1,5 @@
 <mat-toolbar id="mainToolbar" color="primary">
-  <mat-icon id="toolbarMenu" (click)="sidenav.toggle()">
+  <mat-icon id="toolbarMenu" (click)="onToolbarToogle()">
     subject
   </mat-icon>
   VisioEdu
@@ -14,7 +14,7 @@
 </mat-toolbar>
 
 <mat-sidenav-container id="sidenavContainer" fullscreen>
-  <mat-sidenav mode="side" opened #sidenav id="sidenav">
+  <mat-sidenav mode="side" opened #sidenav id="sidenav" [class.menu-open]="isMenuOpen" [class.menu-close]="!isMenuOpen">
     <mat-list id="menus">
       <mat-list-item>
         <button class="menu-item" routerLink="/" mat-flat-button>
@@ -54,7 +54,7 @@
     </mat-list>
   </mat-sidenav>
 
-  <mat-sidenav-content>
+  <mat-sidenav-content [ngStyle]="{'margin-left.px': contentMargin}">
       <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
