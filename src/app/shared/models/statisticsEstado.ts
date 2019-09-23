@@ -1,4 +1,4 @@
-export interface IEscolaStatistics {
+export interface IEstadoStatistics {
     codigo: number;
     estado: string;
     uf: string;

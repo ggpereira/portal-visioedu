@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { StatisticsService } from '../services/statistics.service';
-import { IEscolaStatistics } from '../shared/models/statisticsEscola';
+import { IEstadoStatistics } from '../shared/models/statisticsEstado';
 
 @Component({
   selector: 'app-statistics',
@@ -13,13 +13,13 @@ export class StatisticsComponent implements OnInit {
   titleChart = 'Teste';
   type = 'BarChart';
 
-  dataEscolasStatistics: Array<IEscolaStatistics>;
+  dataEscolasStatistics: Array<IEstadoStatistics>;
 
   myData: Array<any>;
   constructor(private stastisticService: StatisticsService) { }
 
   ngOnInit() {
-    this.stastisticService.getEscolas().subscribe((data) => {
+    this.stastisticService.getStats().subscribe((data) => {
       this.myData = data;
     });
   }

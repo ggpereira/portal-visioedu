@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { IEscolaStatistics} from '../shared/models/statisticsEscola';
+import { IEstadoStatistics } from '../shared/models/statisticsEstado';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -16,12 +16,12 @@ export class StatisticsService {
   //   return this.http.get<Array<IEscolaStatistics>>(environment.host + 'escolas/estatisticas');
   // }
 
-  getEscolas(): Observable<Array<any>> {
-    return this.http.get<Array<IEscolaStatistics>>(environment.host + 'estatisticas/escolas').pipe(
-      map((res: IEscolaStatistics[]) => {
+  getStats(): Observable<Array<any>> {
+    return this.http.get<Array<IEstadoStatistics>>(environment.host + 'estatisticas/estados').pipe(
+      map((res: IEstadoStatistics[]) => {
         const estatisticas = [];
 
-        res.map((data: IEscolaStatistics) => {
+        res.map((data: IEstadoStatistics) => {
            estatisticas.push([data.estado, data.codigo]);
          });
 
