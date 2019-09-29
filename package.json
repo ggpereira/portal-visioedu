@@ -24,6 +24,8 @@
     "@cubejs-client/ngx": "^0.10.42",
     "@swimlane/ngx-charts": "^12.0.1",
     "angular-google-charts": "^0.1.6",
+    "chart.js": "^2.8.0",
+    "ng2-charts": "^2.2.4",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"

@@ -1,4 +1,4 @@
-<mat-card class="card">
+<mat-card class="card" *ngIf="barChartData">
         <mat-card-header>
             <mat-card-title style='font-size: 28px'>
                 <div>
@@ -6,25 +6,30 @@
                         <mat-icon>bar_chart</mat-icon>
                         {{titulo}}
                     </div>
-                    <div *ngIf="chartType === 'pie'">
+                    <!-- <div *ngIf="chartType === 'pie'">
                         <mat-icon>pie_chart</mat-icon>
                         {{titulo}}
-                    </div>
+                    </div> -->
                 </div>
             </mat-card-title>
             <mat-card-subtitle>{{ cardSubHeader }}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-            <div id="pie-chart-parent" *ngIf="chartType === 'pie'">
+            <div class="card-flex-container">
+            <!-- <div class="card-container" *ngIf="chartType === 'pie'">
                 <ngx-charts-pie-chart [scheme]="colorScheme" [results]="chartData" [legend]="showLegend"
                     [explodeSlices]="explodeSlices" [labels]="showLabels" [doughnut]="doughnut" [gradient]="gradient"
                     [trimLabels]="trimLabels" (select)="onSelect($event)">
                 </ngx-charts-pie-chart>
-            </div>
-            <div id="bar-chart-parent" *ngIf="chartType === 'bar'">
-                <ngx-charts-bar-vertical [scheme]="colorScheme" [results]="chartData"
-                    (select)="onSelect($event)">
-                </ngx-charts-bar-vertical>
+            </div> -->
+                <canvas baseChart 
+                    [datasets]="barChartData"
+                    [labels]="barChartLabels"
+                    [options]="barChartOptions"
+                    [plugins]="barChartPlugins"
+                    [legend]="barChartLegend"
+                    [chartType]="barChartType">
+                </canvas>
             </div>
         </mat-card-content>
     </mat-card>

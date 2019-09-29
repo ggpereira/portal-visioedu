@@ -1,9 +1,9 @@
 .card {
-    margin: 10px;
-    float: left;
-    // max-width:;
-    width: 40%;
-    height: 60%;
+     margin: 10px;
+     float: left;
+     width: 30%;
+     height: 39%;
+     min-height: 280px;
 }
 
 mat-card-header{
@@ -20,4 +20,8 @@ mat-card-subtitle{
 }
 #bar-chart-parent{
     height: 250px;
+}
+
+mat-card-title{
+    white-space: nowrap;
 }

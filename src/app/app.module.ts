@@ -9,7 +9,8 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material-module';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { HomeComponent } from './home/home.component';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+// import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ChartsModule } from 'ng2-charts';
 
 import { SobreComponent } from './sobre/sobre.component';
 import { ChartsComponent } from './charts/charts.component';
@@ -29,7 +30,8 @@ import { ChartsComponent } from './charts/charts.component';
     BrowserAnimationsModule,
     NoopAnimationsModule,
     MaterialModule,
-    NgxChartsModule,
+    ChartsModule,
+    // NgxChartsModule,
     CubejsClientModule
   ],
   providers: [],
