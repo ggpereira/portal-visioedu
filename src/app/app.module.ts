@@ -10,11 +10,14 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { HomeComponent } from './home/home.component';
 
 import { ChartsModule } from 'ng2-charts';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { SobreComponent } from './sobre/sobre.component';
 import { ChartsComponent } from './charts/charts.component';
 import { fakeBackendProvider } from './shared/mocks/mock-interceptor';
 import { environment } from 'src/environments/environment';
+import { SearchComponent } from './search/search.component';
+import { EscolaService } from './services/escola.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,8 @@ import { environment } from 'src/environments/environment';
     StatisticsComponent,
     HomeComponent,
     SobreComponent,
-    ChartsComponent
+    ChartsComponent,
+    SearchComponent
   ],
   imports: [
     HttpClientModule,
@@ -32,8 +36,9 @@ import { environment } from 'src/environments/environment';
     NoopAnimationsModule,
     MaterialModule,
     ChartsModule,
+    ReactiveFormsModule,
   ],
-  providers: [ environment.mocking ? fakeBackendProvider : [] ],
+  providers: [ environment.mocking ? fakeBackendProvider : [], EscolaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

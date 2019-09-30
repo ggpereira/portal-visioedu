@@ -1,0 +1,9 @@
+<section class="filter-wrapper">
+    <div class="keyword-wrapper">
+        <input type="text" [formControl]="queryField" id="keyword" placeholder="Busca de escolas" autofocus />
+    </div>
+    <ul class="filter-select">
+        <li *ngFor="let result of results" class="filter-select-list">
+            <p class="artist-name">{{result}}</p>
+    </ul>
+</section>
