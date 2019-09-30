@@ -31,3 +31,16 @@ export interface IDadosEnem {
     nu_nota_redacao: number;
     co_escola: number;
 }
+
+export interface IMediasEnem {
+    codigo: number;
+    estado: string;
+    uf: string;
+    municipio: string;
+    mediaGeral: number;
+    mediaCn: number;
+    mediaCh: number;
+    mediaMat: number;
+    mediaLc: number;
+    mediaRedacao: number;
+}

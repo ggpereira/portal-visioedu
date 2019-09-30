@@ -5,9 +5,8 @@ import { StatisticsCidadeService } from '../services/statistics-cidade.service';
 import { ILocation } from '../shared/models/location';
 import { ChartConf } from '../charts/charts.component';
 import { ICidadeStatistics } from '../shared/models/statisticsCidade';
-import { IMediasCidade } from '../shared/models/mediasEnem';
+import { IMediasEnem } from '../shared/models/enem';
 import { LocationService } from '../services/location.service';
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -20,7 +19,7 @@ export class HomeComponent implements OnInit {
   location: ILocation;
   chartConf: ChartConf;
   statsCidade: ICidadeStatistics;
-  dataMediasCidade: IMediasCidade;
+  dataMediasCidade: IMediasEnem;
   chartValues: number[];
   cardSubHeader: string;
   pieChartConfAguaInexistente: ChartConf;
@@ -48,6 +47,7 @@ export class HomeComponent implements OnInit {
     private locationService: LocationService) { }
 
   ngOnInit() {
+    console.log('ENVIRONMENT');
     this.locationService.getLocation().subscribe((locationData: ILocation) => {
       this.location = locationData;
       this.getMediaCidade(this.location.city, this.location.region);
@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit {
 
 
   getMediaCidade(cidade: string, estado: string){
-    this.enemService.getMediaCidade(cidade, estado).subscribe((dataMedias: IMediasCidade) => {
+    this.enemService.getMediaCidade(cidade, estado).subscribe((dataMedias: IMediasEnem) => {
       this.dataMediasCidade = dataMedias;
       this.chartType = 'bar';
       this.chartValues = [];
