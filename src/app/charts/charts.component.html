@@ -1,35 +1,17 @@
-<mat-card class="card" *ngIf="barChartData">
-        <mat-card-header>
-            <mat-card-title style='font-size: 28px'>
-                <div>
-                    <div *ngIf="chartType === 'bar'">
-                        <mat-icon>bar_chart</mat-icon>
-                        {{titulo}}
-                    </div>
-                    <!-- <div *ngIf="chartType === 'pie'">
-                        <mat-icon>pie_chart</mat-icon>
-                        {{titulo}}
-                    </div> -->
-                </div>
-            </mat-card-title>
-            <mat-card-subtitle>{{ cardSubHeader }}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-            <div class="card-flex-container">
-            <!-- <div class="card-container" *ngIf="chartType === 'pie'">
-                <ngx-charts-pie-chart [scheme]="colorScheme" [results]="chartData" [legend]="showLegend"
-                    [explodeSlices]="explodeSlices" [labels]="showLabels" [doughnut]="doughnut" [gradient]="gradient"
-                    [trimLabels]="trimLabels" (select)="onSelect($event)">
-                </ngx-charts-pie-chart>
-            </div> -->
-                <canvas baseChart 
-                    [datasets]="barChartData"
-                    [labels]="barChartLabels"
-                    [options]="barChartOptions"
-                    [plugins]="barChartPlugins"
-                    [legend]="barChartLegend"
-                    [chartType]="barChartType">
-                </canvas>
+<mat-card class="card" *ngIf="chartConfig.chartData">
+    <mat-card-header>
+        <mat-card-title style='font-size: 28px'>
+            <div>
+                <mat-icon>{{ iconName }}</mat-icon>
+                {{titulo}}
             </div>
-        </mat-card-content>
-    </mat-card>
+        </mat-card-title>
+        <mat-card-subtitle>{{ subHeader }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <canvas baseChart [datasets]="chartConfig.chartData" [labels]="chartConfig.chartLabels"
+            [options]="chartConfig.chartOptions" [plugins]="chartConfig.chartPlugins" [legend]="chartConfig.legend"
+            [chartType]="chartType" [colors]="colors">
+        </canvas>
+    </mat-card-content>
+</mat-card>
