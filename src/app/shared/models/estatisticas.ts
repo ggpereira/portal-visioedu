@@ -1,4 +1,8 @@
-export interface IEstadoStatistics {
+/*
+    Interface para a manipulação de dados relacionados a estatísticas
+*/
+
+export interface IEstatisticas {
     codigo: number;
     estado: string;
     uf: string;
@@ -17,3 +21,21 @@ export interface IEstadoStatistics {
     porcentagemInternet: number;
     porcentagemBandaLarga: number;
 }
+
+
+// tslint:disable-next-line: no-empty-interface
+export interface IEstatisticasEstado extends IEstatisticas {}
+
+export interface IEstatisticasCidade extends IEstatisticas {
+    municipio: string;
+}
+
+/*
+    Interface da resposta retornada pelo backend
+*/
+export interface IResponseEstatistica {
+    data: IEstatisticasEstado[] | IEstatisticasCidade[];
+}
+
+
+

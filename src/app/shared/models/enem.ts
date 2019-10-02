@@ -1,3 +1,7 @@
+/*
+    Interface para a manipulação de dados relacionados ao Enem
+*/
+
 export interface IDadosEnem {
     nu_inscricao: number;
     nu_idade: number;
@@ -43,4 +47,12 @@ export interface IMediasEnem {
     mediaMat: number;
     mediaLc: number;
     mediaRedacao: number;
+}
+
+export interface IResponseDadosEnem {
+    data: Array<IDadosEnem>;
+}
+
+export interface IResponseMediasEnem {
+    data: Array<IMediasEnem>;
 }

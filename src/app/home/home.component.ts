@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { EnemService } from '../services/enem.service';
 import { StatisticsService } from '../services/statistics.service';
-import { StatisticsCidadeService } from '../services/statistics-cidade.service';
 import { ILocation } from '../shared/models/location';
 import { ChartConf } from '../charts/charts.component';
-import { ICidadeStatistics } from '../shared/models/statisticsCidade';
 import { IMediasEnem } from '../shared/models/enem';
 import { LocationService } from '../services/location.service';
+import { IEstatisticasCidade } from '../shared/models/estatisticas';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -18,7 +17,7 @@ export class HomeComponent implements OnInit {
 
   location: ILocation;
   chartConf: ChartConf;
-  statsCidade: ICidadeStatistics;
+  statsCidade: IEstatisticasCidade;
   dataMediasCidade: IMediasEnem;
   chartValues: number[];
   cardSubHeader: string;
@@ -43,7 +42,6 @@ export class HomeComponent implements OnInit {
   constructor(
     private enemService: EnemService,
     private statisticsService: StatisticsService,
-    private statisticsCidadeService: StatisticsCidadeService,
     private locationService: LocationService) { }
 
   ngOnInit() {
@@ -56,9 +54,9 @@ export class HomeComponent implements OnInit {
   }
 
 
-  getMediaCidade(cidade: string, estado: string){
-    this.enemService.getMediaCidade(cidade, estado).subscribe((dataMedias: IMediasEnem) => {
-      this.dataMediasCidade = dataMedias;
+  getMediaCidade(cidade: string, estado: string) {
+    this.enemService.getMediaCidade(cidade, estado).subscribe((dataMedias: Array<IMediasEnem>) => {
+      this.dataMediasCidade = dataMedias[0];
       this.chartType = 'bar';
       this.chartValues = [];
       this.chartValues.push(this.dataMediasCidade.mediaCh);
@@ -85,9 +83,9 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  getEstatisticasCidade(cidade: string, estado: string){
-    this.statisticsCidadeService.getStatsCidade(cidade, estado).subscribe((statsCidade: ICidadeStatistics) => {
-      this.statsCidade = statsCidade;
+  getEstatisticasCidade(cidade: string, estado: string) {
+    this.statisticsService.getEstatisticasCidade(cidade, estado).subscribe((estatisticasCidade: Array<IEstatisticasCidade>) => {
+      this.statsCidade = estatisticasCidade[0];
       this.pieChartConfAguaInexistente = {
         chartLabels: [['Possui'], ['Não possui']],
         chartPlugins: [],
@@ -114,8 +112,8 @@ export class HomeComponent implements OnInit {
 
       this.pieChartConfInternet = {
         chartLabels: [['Possui acesso'], ['Não possui acesso']],
-        chartPlugins: [], 
-        legend: true, 
+        chartPlugins: [],
+        legend: true,
         chartData: [{
           data: [this.statsCidade.porcentagemInternet * 100 , (1 - this.statsCidade.porcentagemInternet) * 100],
         }],
@@ -141,7 +139,7 @@ export class HomeComponent implements OnInit {
   }
 
   getChartColors(): any {
-    var customColors = [{ backgroundColor: ['#9370DB', '#E6E6FA', '#9975B9', '#BFA8D3'] }];
+    const customColors = [{ backgroundColor: ['#9370DB', '#E6E6FA', '#9975B9', '#BFA8D3'] }];
     return customColors;
   }
 

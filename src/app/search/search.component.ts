@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EscolaService } from '../services/escola.service';
 import { FormControl } from '@angular/forms';
-import { IDataEscola } from '../shared/models/escola';
+import { IResponseEscola } from '../shared/models/escola';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 @Component({
@@ -18,9 +18,9 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     this.queryField.valueChanges.pipe(
-      distinctUntilChanged(),switchMap((query) =>  this.searchService.getEscolas(5, 1 , query)))
+      distinctUntilChanged(), switchMap((query) =>  this.searchService.getEscolas(5, 1 , query)))
       .subscribe(queryField => this.searchService.getEscolas(5, 1, queryField)
-      .subscribe((response: IDataEscola) => {
+      .subscribe((response: IResponseEscola) => {
         this.results = [];
         response.data.forEach(element => {
           this.results.push(element.no_entidade);

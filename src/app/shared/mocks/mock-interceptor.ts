@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
-import { registerLocaleData } from '@angular/common';
 import { IMediasEnem } from '../models/enem';
 import { ok } from 'assert';
-import { ICidadeStatistics } from '../models/statisticsCidade';
+import { IEstatisticasCidade } from '../models/estatisticas';
+
 
 
 @Injectable()
-export class FakeBackendInterceptor implements HttpInterceptor{
+export class FakeBackendInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const { url, method, headers, body } = request;
         return of(null)
@@ -17,7 +17,7 @@ export class FakeBackendInterceptor implements HttpInterceptor{
             .pipe(materialize())
             .pipe(delay(500))
             .pipe(dematerialize());
-        
+
         function handleRoute() {
             switch (true) {
                 case url.match(/medias\/municipios/) && method === 'GET':
@@ -38,8 +38,8 @@ export class FakeBackendInterceptor implements HttpInterceptor{
                 mediaGeral: 567.8,
                 mediaCn: 568.9,
                 mediaCh: 598.5,
-                mediaMat: 589.6, 
-                mediaLc: 623.2, 
+                mediaMat: 589.6,
+                mediaLc: 623.2,
                 mediaRedacao: 678.1,
             }];
             return ok({
@@ -48,7 +48,7 @@ export class FakeBackendInterceptor implements HttpInterceptor{
         }
 
         function getEstatisticasByMunicipio() {
-            const estatisticas: ICidadeStatistics[] = [{
+            const estatisticas: IEstatisticasCidade[] = [{
                 codigo: 1,
                 municipio: 'Santa Maria',
                 estado: 'Rio Grande do Sul',
@@ -88,4 +88,4 @@ export const fakeBackendProvider = {
     provide: HTTP_INTERCEPTORS,
     useClass: FakeBackendInterceptor,
     multi: true
-}
+};

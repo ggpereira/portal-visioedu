@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   mocking: false,
-  host: 'http://localhost:3000/'
+  host: 'http://localhost:3000/',
+  apiLocation: 'https://api.ip.sb/geoip'
 };
 
 /*

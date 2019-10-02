@@ -1,3 +1,6 @@
+/*
+    Interface para a manipulação de dados relacionados a escolas
+*/
 export interface IEscola {
     co_entidade: number;
     no_entidade: string;
@@ -30,7 +33,7 @@ export interface IEscola {
     tp_localizacao_diferenciada: number;
 }
 
-export interface IDataEscola {
+export interface IResponseEscola {
     data: Array<IEscola>;
     maxPages: number;
     per_page: number;
