@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { EscolaService } from '../services/escola.service';
+import { EscolaService } from '../../services/escola.service';
 import { FormControl } from '@angular/forms';
-import { IResponseEscola } from '../shared/models/escola';
+import { IResponseEscola } from '../../shared/models/escola';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 @Component({

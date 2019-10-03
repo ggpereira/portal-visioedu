@@ -19,19 +19,13 @@ export class EnemService {
   getMediaCidade(nomeMunicipio: string, nomeEstado: string): Observable<Array<IMediasEnem>> {
     let params = new HttpParams();
 
-    console.log('parâmetros recebidos:', nomeMunicipio, nomeEstado);
-
     if (nomeMunicipio !== undefined) {
-      console.log('Criando filtro para municipio');
       params = params.append('municipio', nomeMunicipio);
     }
 
     if (nomeEstado !== undefined) {
-      console.log('Criando filtro para estado');
       params = params.append('estado', nomeEstado);
     }
-
-    console.log(params);
 
     return this.httpClient.get<IResponseMediasEnem>(environment.host + 'medias/municipios', {params})
       .pipe(

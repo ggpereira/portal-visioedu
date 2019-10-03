@@ -16,17 +16,17 @@ import { SobreComponent } from './sobre/sobre.component';
 import { ChartsComponent } from './charts/charts.component';
 import { fakeBackendProvider } from './shared/mocks/mock-interceptor';
 import { environment } from 'src/environments/environment';
-import { SearchComponent } from './search/search.component';
+import { SearchComponent } from './statistics/search/search.component';
 import { EscolaService } from './services/escola.service';
+import { StatisticsModule } from './statistics/statistics.module';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    StatisticsComponent,
     HomeComponent,
     SobreComponent,
-    ChartsComponent,
-    SearchComponent
+    ChartsComponent
   ],
   imports: [
     HttpClientModule,
@@ -36,6 +36,7 @@ import { EscolaService } from './services/escola.service';
     NoopAnimationsModule,
     MaterialModule,
     ChartsModule,
+    StatisticsModule,
     ReactiveFormsModule,
   ],
   providers: [ environment.mocking ? fakeBackendProvider : [], EscolaService],

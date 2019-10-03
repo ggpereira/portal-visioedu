@@ -6,7 +6,10 @@ import { SobreComponent } from './sobre/sobre.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
-  { path: 'statistics', component: StatisticsComponent},
+  {
+    path: 'estatisticas',
+    loadChildren: () => import('./statistics/statistics.module').then(m => m.StatisticsModule)
+  },
   { path: 'sobre', component: SobreComponent}
 ];
 
