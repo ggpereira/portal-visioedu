@@ -11,4 +11,17 @@ export class StatisticsComponent implements OnInit {
   myData: Array<any>;
   constructor(private stastisticService: StatisticsService) { }
   ngOnInit() {}
+
+  goViewEscolas() {
+    console.log('ir para view escolas' );
+  }
+
+  goViewEstados() {
+    console.log('ir para view estados');
+  }
+
+  goViewCidades() {
+    console.log('ir para view cidades');
+  }
+
 }

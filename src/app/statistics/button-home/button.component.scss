@@ -3,7 +3,7 @@
 $config: mat-typography-config();
 
 .button {
-    width: 35%;
+    width: 46%;
     height: 38%;
     margin: 10px;
     overflow: hidden;
@@ -11,7 +11,7 @@ $config: mat-typography-config();
     font-family: mat-font-family($config);
     transition: background-color .3s;
     background-color: #fff;
-    color: #D3D3D3;
+    color: #F9F9F9;
     outline: none;
     box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
     border-radius: 2px;
@@ -19,10 +19,13 @@ $config: mat-typography-config();
     font-size: 40px;
     min-width: 400px;
     min-height: 380px;
-
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
 }
 
 .button:hover {
-  background-color: #C2C2C2;
+  background:#9029FE;
+  color: #BDBDBD;
   opacity: 0.8;
 }

@@ -1,3 +1,5 @@
-<app-button [buttonBackgroundImage]="'assets/img/brasil-globo_640.jpg'" [buttonName]="'Visualizar estatísticas dos estados'" ></app-button>
-<app-button [buttonBackgroundImage]="'assets/img/brasil-globo_640.jpg'" [buttonName]="'Visualizar estatísticas das cidades'"></app-button>
-<app-button [buttonBackgroundImage]="'assets/img/brasil-globo_640.jpg'" [buttonName]="'Buscar Escolas'"></app-button>
+<div class='statistics-home-content'>
+  <app-button routerLink="/estados" [buttonBackgroundImage]="'assets/img/brasil-globo_640.jpg'" [buttonName]="'Visualizar estatísticas dos estados'" (click)="goViewEstados()"></app-button>
+  <app-button routerLink="/cidades" [buttonBackgroundImage]="'assets/img/brasil-globo_640.jpg'" [buttonName]="'Visualizar estatísticas das cidades'" (click)="goViewCidades()" ></app-button>
+  <app-button routerLink="/escolas" [buttonBackgroundImage]="'assets/img/brasil-globo_640.jpg'" [buttonName]="'Buscar Escolas'" (click)="goViewEscolas()"></app-button>
+</div>
