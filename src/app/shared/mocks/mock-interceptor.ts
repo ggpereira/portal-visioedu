@@ -24,6 +24,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return getMediasByMunicipio();
                 case url.match(/estatisticas\/municipios/) && method === 'GET':
                     return getEstatisticasByMunicipio();
+                case url.match(/geoip/) && method === 'GET':
+                    return getLocation();
                 default:
                     return next.handle(request);
             }
@@ -72,6 +74,26 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             return ok({
                 data: estatisticas,
             });
+        }
+
+        function getLocation() {
+          return ok(
+            {
+              longitude: -53.8314,
+              city: 'Santa Maria',
+              timezone: 'America\/Sao_Paulo',
+              offset: -10800,
+              region: 'Rio Grande do Sul',
+              asn: 18881,
+              organization: 'TELEFÔNICA BRASIL S.A',
+              country: 'Brazil',
+              ip: '2804:7f6:8082:6b60:454b:656c:5c34:8e99',
+              latitude: -29.7763,
+              postal_code: '97000',
+              continent_code: 'SA',
+              country_code: 'BR',
+              region_code: 'RS'
+           });
         }
 
         function ok(body?) {
