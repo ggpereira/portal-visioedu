@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ILocation } from 'selenium-webdriver';
 import { ChartsComponent, ChartConf } from 'src/app/charts/charts.component';
+import { LocationService } from 'src/app/services/location.service';
 
 @Component({
   selector: 'app-page-estados',
@@ -11,12 +12,12 @@ export class PageEstadosComponent implements OnInit {
   chartType: string;
   titulo: string;
   location: ILocation;
-  pieChartConf: Array<ChartConf>;
-  barChartConf: ChartConf;
+  chartsConf: Array<ChartConf>;
 
-  constructor() { }
+  constructor(private locationService: LocationService) { }
 
   ngOnInit() {
+
   }
 
   selectedStateValue(state) {

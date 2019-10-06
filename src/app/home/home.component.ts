@@ -47,7 +47,6 @@ export class HomeComponent implements OnInit {
     private locationService: LocationService) { }
 
   ngOnInit() {
-    console.log('ENVIRONMENT');
     this.locationService.getLocation().subscribe((locationData: ILocation) => {
       this.location = locationData;
       this.getMediaCidade(this.location.city, this.location.region);
@@ -57,7 +56,7 @@ export class HomeComponent implements OnInit {
 
 
   getMediaCidade(cidade: string, estado: string) {
-    this.enemService.getMediaCidade(cidade, estado).subscribe((dataMedias: Array<IMediasEnem>) => {
+    this.enemService.getMediasCidades(cidade, estado).subscribe((dataMedias: Array<IMediasEnem>) => {
       this.dataMediasCidade = dataMedias[0];
       this.chartType = 'bar';
       this.chartValues = [];
@@ -154,10 +153,4 @@ export class HomeComponent implements OnInit {
       }];
     });
   }
-
-  getChartColors(): any {
-    const customColors = [{ backgroundColor: ['#9370DB', '#E6E6FA', '#9975B9', '#BFA8D3'] }];
-    return customColors;
-  }
-
 }
