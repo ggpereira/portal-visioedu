@@ -1,11 +1,8 @@
 <div>
     <app-search (valueChange)='selectedStateValue($event)'></app-search>
 
-    <div>
-        <app-charts *ngFor="let conf of chartsConf"
-            [chartConfig]="conf"
-            [colors]="colors"
-        >
-        </app-charts>
+    <div *ngIf="barChartConf">
+        <app-charts  [chartConfig]="barChartConf" [colors]="colors"></app-charts>
+        <app-charts  *ngFor="let conf of pieChartsConf" [chartConfig]="conf" [colors]="colors"></app-charts>
     </div>
 </div>
