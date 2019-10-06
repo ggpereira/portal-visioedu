@@ -2,16 +2,16 @@
     <mat-card-header>
         <mat-card-title style='font-size: 28px'>
             <div>
-                <mat-icon>{{ iconName }}</mat-icon>
-                {{titulo}}
+                <mat-icon>{{ chartConfig.iconName }}</mat-icon>
+                {{chartConfig.title}}
             </div>
         </mat-card-title>
-        <mat-card-subtitle>{{ subHeader }}</mat-card-subtitle>
+        <mat-card-subtitle>{{ chartConfig.subHeader }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
         <canvas baseChart [datasets]="chartConfig.chartData" [labels]="chartConfig.chartLabels"
             [options]="chartConfig.chartOptions" [plugins]="chartConfig.chartPlugins" [legend]="chartConfig.legend"
-            [chartType]="chartType" [colors]="colors">
+            [chartType]="chartConfig.chartType" [colors]="colors">
         </canvas>
     </mat-card-content>
 </mat-card>

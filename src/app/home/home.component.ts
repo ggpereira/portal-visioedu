@@ -26,6 +26,8 @@ export class HomeComponent implements OnInit {
   pieChartConfEsgoto: ChartConf;
   pieChartConfEnergia: ChartConf;
 
+  pieChartConf: Array<ChartConf>;
+
 
   public colors = [
     {
@@ -45,7 +47,6 @@ export class HomeComponent implements OnInit {
     private locationService: LocationService) { }
 
   ngOnInit() {
-    console.log('ENVIRONMENT');
     this.locationService.getLocation().subscribe((locationData: ILocation) => {
       this.location = locationData;
       this.getMediaCidade(this.location.city, this.location.region);
@@ -55,7 +56,7 @@ export class HomeComponent implements OnInit {
 
 
   getMediaCidade(cidade: string, estado: string) {
-    this.enemService.getMediaCidade(cidade, estado).subscribe((dataMedias: Array<IMediasEnem>) => {
+    this.enemService.getMediasCidades(cidade, estado).subscribe((dataMedias: Array<IMediasEnem>) => {
       this.dataMediasCidade = dataMedias[0];
       this.chartType = 'bar';
       this.chartValues = [];
@@ -76,7 +77,11 @@ export class HomeComponent implements OnInit {
         }],
         chartOptions: {
           responsive: true,
-        }
+        },
+        chartType: this.chartType,
+        title: 'Médias Enem',
+        subHeader: this.location.city,
+        iconName: 'bar_chart'
       };
 
       this.cardSubHeader = this.location.city;
@@ -86,61 +91,66 @@ export class HomeComponent implements OnInit {
   getEstatisticasCidade(cidade: string, estado: string) {
     this.statisticsService.getEstatisticasCidade(cidade, estado).subscribe((estatisticasCidade: Array<IEstatisticasCidade>) => {
       this.statsCidade = estatisticasCidade[0];
-      this.pieChartConfAguaInexistente = {
-        chartLabels: [['Possui'], ['Não possui']],
-        chartPlugins: [],
-        legend: true,
-        chartData: [{
-          data: [(1 - this.statsCidade.porcentagemAguaInexistente) * 100, this.statsCidade.porcentagemAguaInexistente * 100],
-        }],
-        chartOptions: {
-          responsive: true,
-        }
-      };
-
-      this.pieChartConfEnergia = {
-        chartLabels: [['Possui'], ['Não possui']],
-        chartPlugins: [],
-        legend: true,
-        chartData: [{
-          data: [(1 - this.statsCidade.porcentagemEnergiaInexistente) * 100, this.statsCidade.porcentagemEnergiaInexistente * 100],
-        }],
-        chartOptions: {
-          responsive: true,
-        }
-      };
-
-      this.pieChartConfInternet = {
-        chartLabels: [['Possui acesso'], ['Não possui acesso']],
-        chartPlugins: [],
-        legend: true,
-        chartData: [{
-          data: [this.statsCidade.porcentagemInternet * 100 , (1 - this.statsCidade.porcentagemInternet) * 100],
-        }],
-        chartOptions: {
-          responsive: true,
-        }
-      };
-
-      this.pieChartConfEsgoto = {
-        chartLabels: [['Possui'], ['Não possui']],
-        chartPlugins: [],
-        legend: true,
-        chartData: [{
-          data: [(1 - this.statsCidade.porcentagemEsgotoInexistente) * 100, this.statsCidade.porcentagemEsgotoInexistente]
-        }],
-        chartOptions: {
-          responsive: true
-        }
-      };
-
-      this.cardSubHeader = this.location.city;
+      this.pieChartConf = [
+        {
+          chartLabels: [['Possui'], ['Não possui']],
+          chartPlugins: [],
+          legend: true,
+          chartData: [{
+            data: [(1 - this.statsCidade.porcentagemAguaInexistente) * 100, this.statsCidade.porcentagemAguaInexistente * 100],
+          }],
+          chartOptions: {
+            responsive: true,
+          },
+          chartType: 'pie',
+          title: 'Escolas que possuem água',
+          subHeader: this.location.city,
+          iconName: 'pie_chart'
+        },
+        {
+          chartLabels: [['Possui'], ['Não possui']],
+          chartPlugins: [],
+          legend: true,
+          chartData: [{
+            data: [(1 - this.statsCidade.porcentagemEnergiaInexistente) * 100, this.statsCidade.porcentagemEnergiaInexistente * 100],
+          }],
+          chartOptions: {
+            responsive: true,
+          },
+          chartType: 'pie',
+          title: 'Escolas que possuem energia',
+          subHeader: this.location.city,
+          iconName: 'pie_chart'
+        },
+        {
+          chartLabels: [['Possui acesso'], ['Não possui acesso']],
+          chartPlugins: [],
+          legend: true,
+          chartData: [{
+            data: [this.statsCidade.porcentagemInternet * 100, (1 - this.statsCidade.porcentagemInternet) * 100],
+          }],
+          chartOptions: {
+            responsive: true,
+          },
+          chartType: 'pie',
+          title: 'Escolas que possuem internet',
+          subHeader: this.location.city,
+          iconName: 'pie_chart'
+        }, {
+          chartLabels: [['Possui'], ['Não possui']],
+          chartPlugins: [],
+          legend: true,
+          chartData: [{
+            data: [(1 - this.statsCidade.porcentagemEsgotoInexistente) * 100, this.statsCidade.porcentagemEsgotoInexistente]
+          }],
+          chartOptions: {
+            responsive: true
+          },
+          chartType: 'pie',
+          title: 'Escolas que possuem esgoto',
+          subHeader: this.location.city,
+          iconName: 'pie_chart'
+      }];
     });
   }
-
-  getChartColors(): any {
-    const customColors = [{ backgroundColor: ['#9370DB', '#E6E6FA', '#9975B9', '#BFA8D3'] }];
-    return customColors;
-  }
-
 }

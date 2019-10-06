@@ -16,7 +16,7 @@ export class EnemService {
   /*
     Retorna médias do enem agregadas por cidade
   */
-  getMediaCidade(nomeMunicipio: string, nomeEstado: string): Observable<Array<IMediasEnem>> {
+  getMediasCidades(nomeMunicipio?: string, nomeEstado?: string): Observable<Array<IMediasEnem>> {
     let params = new HttpParams();
 
     if (nomeMunicipio !== undefined) {
@@ -31,6 +31,24 @@ export class EnemService {
       .pipe(
         map((response: IResponseMediasEnem) => {
             return response.data;
+        })
+      );
+  }
+
+  /*
+    Retorna médias do enem agredadas por estado
+  */
+  getMediasEstados(nomeEstado?: string): Observable<Array<IMediasEnem>> {
+    let params = new HttpParams();
+
+    if (nomeEstado !== undefined) {
+      params = params.append('estado', nomeEstado);
+    }
+
+    return this.httpClient.get<IResponseMediasEnem>(environment.host + 'medias/estados', { params })
+      .pipe(
+        map((response: IResponseMediasEnem) => {
+          return response.data;
         })
       );
   }
