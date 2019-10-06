@@ -10,13 +10,12 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { HomeComponent } from './home/home.component';
 
 import { ChartsModule } from 'ng2-charts';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { SobreComponent } from './sobre/sobre.component';
 import { ChartsComponent } from './charts/charts.component';
 import { fakeBackendProvider } from './shared/mocks/mock-interceptor';
 import { environment } from 'src/environments/environment';
-import { SearchComponent } from './statistics/search/search.component';
 import { EscolaService } from './services/escola.service';
 import { StatisticsModule } from './statistics/statistics.module';
 
@@ -37,7 +36,7 @@ import { StatisticsModule } from './statistics/statistics.module';
     MaterialModule,
     ChartsModule,
     StatisticsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   providers: [ environment.mocking ? fakeBackendProvider : [], EscolaService],
   bootstrap: [AppComponent]

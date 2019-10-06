@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { StatisticsRoutingModule } from './statistics-routing.module';
-import { SearchComponent } from './search/search.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { StatisticsComponent } from './statistics.component';
 import { MaterialModule } from '../material-module';
 import { ButtonComponent } from './button-home/button.component';
@@ -13,12 +13,14 @@ import { PageEscolasComponent } from './page-escolas/page-escolas.component';
 
 
 @NgModule({
-  declarations: [ SearchComponent, StatisticsComponent, ButtonComponent, PageEstadosComponent, PageCidadesComponent, PageEscolasComponent ],
+  declarations: [ StatisticsComponent, ButtonComponent, PageEstadosComponent, PageCidadesComponent, PageEscolasComponent ],
   imports: [
     CommonModule,
     StatisticsRoutingModule,
     ReactiveFormsModule,
-    MaterialModule
+    FormsModule,
+    MaterialModule,
+    MatAutocompleteModule
   ]
 })
 export class StatisticsModule { }
