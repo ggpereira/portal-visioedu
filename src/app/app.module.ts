@@ -7,26 +7,24 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material-module';
-import { StatisticsComponent } from './statistics/statistics.component';
 import { HomeComponent } from './home/home.component';
 
 import { ChartsModule } from 'ng2-charts';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { SobreComponent } from './sobre/sobre.component';
-import { ChartsComponent } from './charts/charts.component';
 import { fakeBackendProvider } from './shared/mocks/mock-interceptor';
 import { environment } from 'src/environments/environment';
 import { EscolaService } from './services/escola.service';
 import { StatisticsModule } from './statistics/statistics.module';
+import { ChartsComponentModule } from './charts/charts.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    SobreComponent,
-    ChartsComponent
+    SobreComponent
   ],
   imports: [
     HttpClientModule,
@@ -39,6 +37,7 @@ import { StatisticsModule } from './statistics/statistics.module';
     StatisticsModule,
     ReactiveFormsModule,
     FormsModule,
+    ChartsComponentModule
   ],
   providers: [ environment.mocking ? fakeBackendProvider : [], EscolaService],
   bootstrap: [AppComponent]

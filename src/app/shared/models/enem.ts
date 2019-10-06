@@ -40,7 +40,7 @@ export interface IMediasEnem {
     codigo: number;
     estado: string;
     uf: string;
-    municipio: string;
+    municipio?: string;
     mediaGeral: number;
     mediaCn: number;
     mediaCh: number;
@@ -48,7 +48,6 @@ export interface IMediasEnem {
     mediaLc: number;
     mediaRedacao: number;
 }
-
 export interface IResponseDadosEnem {
     data: Array<IDadosEnem>;
 }
