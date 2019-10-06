@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
-import { IEstatisticasCidade } from '../../shared/models/estatisticas'
+import { IEstatisticasCidade } from '../../shared/models/estatisticas';
 import { StatisticsService } from 'src/app/services/statistics.service';
 import { distinctUntilChanged, switchMap } from 'rxjs/operators';
 
@@ -11,7 +11,7 @@ import { distinctUntilChanged, switchMap } from 'rxjs/operators';
   styleUrls: ['./page-cidades.component.scss']
 })
 export class PageCidadesComponent implements OnInit {
-  options: any[] = [];
+  options: IEstatisticasCidade[] = [];
   myControl: FormControl = new FormControl();
 
   constructor(private searchCityService: StatisticsService) { }
@@ -23,9 +23,8 @@ export class PageCidadesComponent implements OnInit {
 
     this.myControl.valueChanges.pipe(distinctUntilChanged(), startWith(''))
       .subscribe(myControl =>
-        this.searchCityService.getEstatisticasCidade(myControl, "Rio Grande do Sul").subscribe(response => {
-          if(myControl)
-            this.options = response;
+        this.searchCityService.getEstatisticasCidade(myControl, 'Rio Grande do Sul').subscribe((response: Array <IEstatisticasCidade>) => {
+          this.options = response;
           console.log(this.options);
         })
       );

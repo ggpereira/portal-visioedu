@@ -126,7 +126,7 @@ export class PageEstadosComponent implements OnInit {
             responsive: true,
           },
           chartType: 'pie',
-          title: 'Escolas que possuem lab Informática',
+          title: 'Laboratório Informática',
           subHeader: nomeEstado,
           iconName: 'pie_chart'
         },
@@ -162,7 +162,7 @@ export class PageEstadosComponent implements OnInit {
             responsive: true,
           },
           chartType: 'pie',
-          title: 'Escolas que possuem biblioteca',
+          title: 'Escolas com Biblioteca',
           subHeader: nomeEstado,
           iconName: 'pie_chart'
         },

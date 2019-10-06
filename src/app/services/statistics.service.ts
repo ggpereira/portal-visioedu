@@ -25,7 +25,7 @@ export class StatisticsService {
     return this.http.get<IResponseEstatistica>(environment.host + 'estatisticas/estados', { params })
       .pipe(
          map((res: IResponseEstatistica) => {
-          return res.data as Array<IEstatisticasEstado>;
+           return res.data as Array<IEstatisticasEstado>;
         })
       );
   }
