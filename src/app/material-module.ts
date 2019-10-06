@@ -11,7 +11,9 @@ import {
     MatCardModule,
     MatTableModule,
     MatInputModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatAutocompleteModule,
+    MatSelectModule
 } from '@angular/material';
 
 @NgModule({
@@ -25,9 +27,11 @@ import {
         MatGridListModule,
         MatCardModule,
         MatTableModule,
-        MatFormFieldModule,
         MatInputModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        MatAutocompleteModule,
+        MatFormFieldModule,
+        MatSelectModule
     ],
     exports: [
         MatToolbarModule,
@@ -41,7 +45,9 @@ import {
         MatTableModule,
         MatFormFieldModule,
         MatInputModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        MatAutocompleteModule,
+        MatSelectModule
     ],
     providers: [],
 })

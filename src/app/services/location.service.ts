@@ -14,4 +14,5 @@ export class LocationService {
   getLocation(): Observable<ILocation> {
     return this.http.get<ILocation>(environment.apiLocation);
   }
+
 }

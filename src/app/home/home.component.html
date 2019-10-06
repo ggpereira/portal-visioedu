@@ -1,52 +1,12 @@
 <!-- <app-charts [chartType]="'pie'" [query]="'mediasQuery'" [titulo]="'Médias ENEM'"></app-charts> -->
 <app-charts *ngIf="chartConf"
-    [chartType]="chartType"  
-    [titulo]="'Médias Enem'"
-    [subHeader]="cardSubHeader"
     [chartConfig]="chartConf"
-    [iconName]="'bar_chart'"
     [colors]="colors"
     >
 </app-charts>
 
-<app-charts *ngIf="pieChartConfAguaInexistente" 
-    [chartType]="'pie'" 
-    [titulo]="'Escolas que possuem água'" 
-    [subHeader]="cardSubHeader"
-    [chartConfig]="pieChartConfAguaInexistente" 
-    [iconName]="'bar_chart'"
+<app-charts *ngFor="let conf of pieChartConf" 
+    [chartConfig]="conf"
     [colors]="colors"
-    >
-</app-charts>
-
-
-<app-charts *ngIf="pieChartConfEnergia" 
-    [chartType]="'pie'" 
-    [titulo]="'Escolas que possuem energia'"
-    [subHeader]="cardSubHeader" 
-    [chartConfig]="pieChartConfEnergia" 
-    [iconName]="'bar_chart'"
-    [colors]="colors"
-    >
-    
-</app-charts>
-
-<app-charts *ngIf="pieChartConfInternet" 
-    [chartType]="'pie'" 
-    [titulo]="'Escolas que possuem internet'"
-    [subHeader]="cardSubHeader" 
-    [chartConfig]="pieChartConfInternet" 
-    [iconName]="'bar_chart'"
-    [colors]="colors"
-    >
-</app-charts>
-
-<app-charts *ngIf="pieChartConfEsgoto"
-    [chartType]="'pie'"
-    [titulo]="'Escolas que possuem esgoto'"
-    [subHeader]="cardSubHeader"
-    [chartConfig]="pieChartConfEsgoto"
-    [iconName]="'bar_chart'"
-    [colors]="colors"
-    >
+>
 </app-charts>

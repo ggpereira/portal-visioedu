@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { StatisticsRoutingModule } from './statistics-routing.module';
-import { SearchComponent } from './search/search.component';
+import { SearchComponent } from './page-estados/search/search.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StatisticsComponent } from './statistics.component';
 import { MaterialModule } from '../material-module';
@@ -18,7 +19,8 @@ import { PageEscolasComponent } from './page-escolas/page-escolas.component';
     CommonModule,
     StatisticsRoutingModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule,
   ]
 })
 export class StatisticsModule { }

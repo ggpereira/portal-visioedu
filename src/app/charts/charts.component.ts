@@ -4,11 +4,15 @@ import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
 
 export interface ChartConf {
+  title: string;
   chartLabels: Label[];
   legend: boolean;
   chartPlugins: any;
   chartData: ChartDataSets[];
   chartOptions: ChartOptions;
+  chartType: string;
+  subHeader: string;
+  iconName?: string;
 }
 
 @Component({

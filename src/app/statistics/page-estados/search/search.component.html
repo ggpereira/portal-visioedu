@@ -1,0 +1,9 @@
+<div class="search-box-container">
+    <form>
+        <mat-form-field class="search-box-size">
+          <mat-select placeholder="Selecione um estado" disableOptionCentering="true" (selectionChange)="onChange($event.value)">
+              <mat-option *ngFor="let estado of estados" [value]="estado.estado">{{ estado.estado }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+    </form>
+</div>
