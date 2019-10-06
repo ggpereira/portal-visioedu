@@ -14,10 +14,11 @@ import { LocationService } from '../services/location.service';
 import { ChartsComponent } from '../charts/charts.component';
 import { AppModule } from '../app.module';
 import { ChartsComponentModule } from '../charts/charts.module';
+import { SearchComponent } from './page-estados/search/search.component';
 
 
 @NgModule({
-  declarations: [ StatisticsComponent, ButtonComponent, PageEstadosComponent, PageCidadesComponent, PageEscolasComponent ],
+  declarations: [ StatisticsComponent, ButtonComponent, PageEstadosComponent, PageCidadesComponent, PageEscolasComponent, SearchComponent ],
   imports: [
     CommonModule,
     StatisticsRoutingModule,
