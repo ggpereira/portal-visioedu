@@ -28,6 +28,7 @@ import { SearchComponent } from './page-estados/search/search.component';
     MatAutocompleteModule,
     ChartsComponentModule
   ],
+  exports: [ SearchComponent ],
   providers: []
 })
 export class StatisticsModule { }
