@@ -6,7 +6,7 @@ export interface IEstatisticas {
     codigo: number;
     estado: string;
     uf: string;
-    qt_escolas: number;
+    qtdEscolas: number;
     porcentagemAguaFiltrada: number;
     porcentagemAguaInexistente: number;
     porcentagemEsgotoInexistente: number;

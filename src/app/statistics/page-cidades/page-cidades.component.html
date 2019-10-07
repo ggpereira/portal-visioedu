@@ -1,21 +1,38 @@
-<div fxLayout="row"  style="display:flex">
+<div fxLayout="row" style="display:flex">
   <div style="width: 40%">
-    <app-search  [defaultStateName]="currentStateName" (valueChange)='setCurrentStateValue($event)' ></app-search>
+    <app-search [defaultStateName]="currentStateName" (valueChange)='setCurrentStateValue($event)'></app-search>
   </div>
 
   <div class="search-box-container">
     <form>
-        <mat-form-field class="search-box-size">
-          <input type="text" placeholder="Digite um municipio" aria-label="Municipio" matInput [formControl]="myControl" [matAutocomplete]="auto">
-          <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let option of data" [value]="option.municipio" (onSelectionChange)='onSelection($event)'>
-              {{option.municipio}}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
+      <mat-form-field class="search-box-size">
+        <input type="text" placeholder="Digite um municipio" aria-label="Municipio" matInput [formControl]="myControl"
+          [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of data" [value]="option.municipio" (onSelectionChange)='onSelection($event)'>
+            {{option.municipio}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
     </form>
   </div>
 </div>
 
-<app-charts  *ngIf="barChartConf" [chartConfig]="barChartConf" [colors]="colors"></app-charts>
+<mat-card class="card">
+  <mat-card-header>
+    <mat-card-title style='font-size: 28px'>
+      <div>
+        <mat-icon>school</mat-icon>
+        Quantidade de Escolas
+      </div>
+    </mat-card-title>
+    <mat-card-subtitle>
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content *ngIf="qt_Escolas">
+    <h1 style="margin-left: 30%; margin-top: 30%;">{{ qt_Escolas }} ESCOLAS</h1>
+  </mat-card-content>
+</mat-card>
+
+<app-charts *ngIf="barChartConf" [chartConfig]="barChartConf" [colors]="colors"></app-charts>
 <app-charts *ngFor="let conf of pieChartsConf" [chartConfig]="conf" [colors]="colors"></app-charts>

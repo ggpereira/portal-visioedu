@@ -19,6 +19,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 export class PageCidadesComponent implements OnInit {
   data: IEstatisticasCidade[] = [];
   myControl: FormControl = new FormControl();
+  @Input() qt_Escolas: number;
   currentStateName: string;
   mediasEnem: IMediasEnem;
   barChartConf: ChartConf;
@@ -68,6 +69,7 @@ export class PageCidadesComponent implements OnInit {
   getEstatisticasCidade(municipio: string) {
     this.estatisticasService.getEstatisticasCidade(municipio, this.currentStateName).subscribe((response: Array<IEstatisticasCidade>) => {
       this.estatisticas = response[0];
+      this.qt_Escolas = this.estatisticas.qtdEscolas;
       this.pieChartsConf = [
         {
           chartLabels: [['Possui'], ['Não possui']],

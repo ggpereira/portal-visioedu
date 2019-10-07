@@ -8,3 +8,37 @@
 .search-box-size {
   width: 80%;
 }
+
+.card {
+  margin: 10px;
+  float: left;
+  width: 30%;
+  height: 39%;
+  min-height: 340px;
+  min-width: 395px;
+}
+
+mat-card-header{
+ width: 100%;
+ justify-content: center;
+}
+
+mat-card-subtitle{
+ margin-left: 35%;
+}
+
+mat-card-content:hover{
+  color: purple;
+  cursor: default;
+}
+
+#pie-chart-parent{
+ height: 500px;
+}
+#bar-chart-parent{
+ height: 250px;
+}
+
+mat-card-title{
+ white-space: nowrap;
+}

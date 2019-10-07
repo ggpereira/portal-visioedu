@@ -55,7 +55,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 municipio: 'Santa Maria',
                 estado: 'Rio Grande do Sul',
                 uf: 'RS',
-                qt_escolas: 87,
+                qtdEscolas: 87,
                 porcentagemAguaFiltrada: 0.32,
                 porcentagemAguaInexistente: 0.0,
                 porcentagemEsgotoInexistente: 0.0,
