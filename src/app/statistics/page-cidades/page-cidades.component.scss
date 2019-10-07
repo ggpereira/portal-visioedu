@@ -23,20 +23,9 @@ mat-card-header{
  justify-content: center;
 }
 
-mat-card-subtitle{
- margin-left: 35%;
-}
-
-mat-card-content:hover{
+mat-card-content h1:hover{
   color: purple;
   cursor: default;
-}
-
-#pie-chart-parent{
- height: 500px;
-}
-#bar-chart-parent{
- height: 250px;
 }
 
 mat-card-title{
