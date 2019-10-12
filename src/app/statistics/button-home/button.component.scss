@@ -23,6 +23,7 @@ $config: mat-typography-config();
     -moz-transition: opacity .25s ease-in-out;
     -webkit-transition: opacity .25s ease-in-out;
     vertical-align: bottom;
+    cursor: pointer;
 }
 
 .button:hover {
