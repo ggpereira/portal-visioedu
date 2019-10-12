@@ -16,7 +16,6 @@ import { AppModule } from '../app.module';
 import { ChartsComponentModule } from '../charts/charts.module';
 import { SearchComponent } from './page-estados/search/search.component';
 
-
 @NgModule({
   declarations: [ StatisticsComponent, ButtonComponent, PageEstadosComponent, PageCidadesComponent, PageEscolasComponent, SearchComponent ],
   imports: [
