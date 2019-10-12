@@ -3,8 +3,8 @@
 $config: mat-typography-config();
 
 .button {
-    width: 46%;
-    height: 38%;
+    width: 20%;
+    height: 28%;
     margin: 10px;
     overflow: hidden;
     border-width: 0;
@@ -16,12 +16,13 @@ $config: mat-typography-config();
     box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
     border-radius: 2px;
     // background-image: url('src/assets/img/brasil-globo_640.jpg');
-    font-size: 40px;
-    min-width: 400px;
-    min-height: 380px;
+    font-size: 29px;
+    min-width: 300px;
+    min-height: 180px;
     transition: opacity .25s ease-in-out;
     -moz-transition: opacity .25s ease-in-out;
     -webkit-transition: opacity .25s ease-in-out;
+    vertical-align: bottom;
 }
 
 .button:hover {
