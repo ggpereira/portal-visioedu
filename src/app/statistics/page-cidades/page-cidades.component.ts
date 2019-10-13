@@ -1,15 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { map, startWith } from 'rxjs/operators';
+import { startWith } from 'rxjs/operators';
 import { IEstatisticasCidade } from '../../shared/models/estatisticas';
 import { StatisticsService } from 'src/app/services/statistics.service';
-import { distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged } from 'rxjs/operators';
 import { LocationService } from 'src/app/services/location.service';
 import { ILocation } from 'src/app/shared/models/location';
 import { EnemService } from 'src/app/services/enem.service';
 import { IMediasEnem } from 'src/app/shared/models/enem';
 import { ChartConf } from 'src/app/charts/charts.component';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-page-cidades',
@@ -48,6 +47,7 @@ export class PageCidadesComponent implements OnInit {
 
     this.locationService.getLocation().subscribe((data: ILocation) => {
       this.location = data;
+
       this.currentStateName = this.location.region;
 
       this.getMediasCidade(this.location.city, this.location.region);

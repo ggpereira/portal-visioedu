@@ -1,3 +1,32 @@
-<div style="background-color: blue" fxLayout="row"  >
+<div fxLayout="row" fxLayoutAlign="start start">
+    <div style="width: 25%">
+        <app-search [defaultStateName]="estadoAtual"></app-search>
+    </div>
+    <div class="city-search-box-container">
+        <form>
+            <mat-form-field class="search-box-size">
+                <input type="text" placeholder="Digite um municipio" aria-label="Municipio" matInput
+                    [formControl]="formCidadeControl" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option>
+    
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </form>
+    </div>
+    <div class="school-search-box-container">
+        <form>
+            <mat-form-field class="search-box-size">
+                <input type="text" placeholder="Digite uma escola" aria-label="Escola" matInput
+                    [formControl]="formEscolaControl" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option>
+    
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </form>
+    </div>
 
 </div>

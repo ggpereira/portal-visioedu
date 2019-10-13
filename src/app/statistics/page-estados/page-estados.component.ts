@@ -38,7 +38,7 @@ export class PageEstadosComponent implements OnInit {
     private locationService: LocationService,
     private enemService: EnemService,
     private estatisticasService: StatisticsService
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.locationService.getLocation().subscribe((locationData: ILocation) => {
@@ -206,37 +206,37 @@ export class PageEstadosComponent implements OnInit {
     });
   }
 
-getMediasEstado(nomeEstado: string) {
+  getMediasEstado(nomeEstado: string) {
     this.enemService.getMediasEstados(nomeEstado).subscribe((mediasData: Array<IMediasEnem>) => {
       this.mediasEnemData = mediasData[0];
 
       this.barChartConf = {
-          title: 'Médias Enem',
-          iconName: 'bar_chart',
-          chartType: 'bar',
-          chartLabels: ['Humanas', 'Naturais', 'Matemática', 'Redação', 'Linguagens', 'Geral'],
-          chartPlugins: [],
-          legend: true,
-          chartData: [{
-            data: [
-                this.mediasEnemData.mediaCh,
-                this.mediasEnemData.mediaCn,
-                this.mediasEnemData.mediaMat,
-                this.mediasEnemData.mediaRedacao,
-                this.mediasEnemData.mediaLc,
-                this.mediasEnemData.mediaGeral
-            ],
-            label: 'Médias',
-          }],
-          chartOptions: {
-            responsive: true
-          },
-          subHeader: nomeEstado
-        };
+        title: 'Médias Enem',
+        iconName: 'bar_chart',
+        chartType: 'bar',
+        chartLabels: ['Humanas', 'Naturais', 'Matemática', 'Redação', 'Linguagens', 'Geral'],
+        chartPlugins: [],
+        legend: true,
+        chartData: [{
+          data: [
+            this.mediasEnemData.mediaCh,
+            this.mediasEnemData.mediaCn,
+            this.mediasEnemData.mediaMat,
+            this.mediasEnemData.mediaRedacao,
+            this.mediasEnemData.mediaLc,
+            this.mediasEnemData.mediaGeral
+          ],
+          label: 'Médias',
+        }],
+        chartOptions: {
+          responsive: true
+        },
+        subHeader: nomeEstado
+      };
     });
   }
 
-selectedStateValue(state) {
+  selectedStateValue(state) {
     this.getMediasEstado(state);
     this.getDadosInfraestruturaEscolas(state);
   }
