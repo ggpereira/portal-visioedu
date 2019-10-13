@@ -17,6 +17,7 @@ import { environment } from 'src/environments/environment';
 import { EscolaService } from './services/escola.service';
 import { StatisticsModule } from './statistics/statistics.module';
 import { ChartsComponentModule } from './charts/charts.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -30,13 +31,13 @@ import { ChartsComponentModule } from './charts/charts.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    NoopAnimationsModule,
     MaterialModule,
     ChartsModule,
     StatisticsModule,
     ReactiveFormsModule,
     FormsModule,
-    ChartsComponentModule
+    ChartsComponentModule,
+    FlexLayoutModule
   ],
   providers: [ environment.mocking ? fakeBackendProvider : [], EscolaService],
   bootstrap: [AppComponent]

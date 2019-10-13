@@ -13,8 +13,10 @@ import {
     MatInputModule,
     MatPaginatorModule,
     MatAutocompleteModule,
-    MatSelectModule
+    MatSelectModule,
 } from '@angular/material';
+
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
     imports: [
@@ -31,7 +33,8 @@ import {
         MatPaginatorModule,
         MatAutocompleteModule,
         MatFormFieldModule,
-        MatSelectModule
+        MatSelectModule,
+        MatProgressSpinnerModule
     ],
     exports: [
         MatToolbarModule,
@@ -47,7 +50,8 @@ import {
         MatInputModule,
         MatPaginatorModule,
         MatAutocompleteModule,
-        MatSelectModule
+        MatSelectModule,
+        MatProgressSpinnerModule
     ],
     providers: [],
 })

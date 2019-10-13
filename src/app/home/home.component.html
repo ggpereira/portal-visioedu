@@ -1,12 +1,15 @@
-<!-- <app-charts [chartType]="'pie'" [query]="'mediasQuery'" [titulo]="'Médias ENEM'"></app-charts> -->
-<app-charts *ngIf="chartConf"
-    [chartConfig]="chartConf"
-    [colors]="colors"
-    >
-</app-charts>
 
-<app-charts *ngFor="let conf of pieChartConf" 
-    [chartConfig]="conf"
-    [colors]="colors"
->
-</app-charts>
+<div *ngIf="chartConf && pieChartConf; else loading">
+    <app-charts [chartConfig]="chartConf" [colors]="colors"></app-charts>
+    <app-charts *ngFor="let conf of pieChartConf" 
+        [chartConfig]="conf"
+        [colors]="colors"
+    >
+    </app-charts>
+</div>
+
+<ng-template #loading >
+    <div fxLayout="row" fxLayoutAlign="center center" style="width: 100%; height: 100%">
+        <mat-spinner [diameter]="'350'"></mat-spinner>
+    </div>
+</ng-template>
