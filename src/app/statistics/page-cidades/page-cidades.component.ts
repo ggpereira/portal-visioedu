@@ -58,7 +58,6 @@ export class PageCidadesComponent implements OnInit {
           // tslint:disable-next-line: max-line-length
           this.estatisticasService.getEstatisticasCidade(myControl, this.currentStateName).subscribe((response: Array<IEstatisticasCidade>) => {
             this.data = response;
-            console.log(this.data);
           });
         });
     });
@@ -259,7 +258,7 @@ export class PageCidadesComponent implements OnInit {
   }
 
   setCurrentStateValue(value) {
-    this.currentStateName = value;
+    this.currentStateName = value.estado;
     this.myControl.reset();
   }
 

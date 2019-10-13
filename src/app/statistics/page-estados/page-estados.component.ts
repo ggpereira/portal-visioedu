@@ -21,6 +21,7 @@ export class PageEstadosComponent implements OnInit {
   pieChartsConf: Array<ChartConf>;
   mediasEnemData: IMediasEnem;
   estatisticas: IEstatisticasEstado;
+  currentStateName: string;
 
   public colors = [
     {
@@ -43,6 +44,7 @@ export class PageEstadosComponent implements OnInit {
   ngOnInit() {
     this.locationService.getLocation().subscribe((locationData: ILocation) => {
       this.location = locationData;
+      this.currentStateName = this.location.region;
       this.getMediasEstado(this.location.region);
       this.getDadosInfraestruturaEscolas(this.location.region);
     });

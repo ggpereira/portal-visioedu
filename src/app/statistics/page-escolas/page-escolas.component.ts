@@ -35,7 +35,7 @@ export class PageEscolasComponent implements OnInit {
 
       this.formCidadeControl.valueChanges.pipe(distinctUntilChanged(), startWith(''))
         .subscribe(formValue => {
-
+          this.locationService.getCidades(formValue);
         });
     });
   }

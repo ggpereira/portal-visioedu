@@ -1,5 +1,5 @@
 <div *ngIf="barChartConf && pieChartsConf; else loading">
-    <app-search (valueChange)='selectedStateValue($event)'></app-search>
+    <app-search [defaultStateName]="currentStateName" (valueChange)='selectedStateValue($event)'></app-search>
 
     <div>
         <app-charts  [chartConfig]="barChartConf" [colors]="colors"></app-charts>
