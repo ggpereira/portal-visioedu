@@ -17,4 +17,5 @@ export class ButtonComponent implements OnInit {
   ngOnInit() {
     this.safeStyle = this.sanitizer.bypassSecurityTrustStyle(`url(${this.buttonBackgroundImage})`);
   }
+
 }
