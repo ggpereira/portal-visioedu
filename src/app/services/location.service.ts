@@ -15,4 +15,7 @@ export class LocationService {
     return this.http.get<ILocation>(environment.apiLocation);
   }
 
+
+  getCidades():  
+
 }

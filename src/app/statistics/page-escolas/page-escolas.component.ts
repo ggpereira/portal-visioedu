@@ -4,6 +4,7 @@ import { LocationService } from 'src/app/services/location.service';
 import { ILocation } from '../../shared/models/location';
 import { FormControl} from '@angular/forms';
 import { IEscola, IResponseEscola } from 'src/app/shared/models/escola';
+import { startWith, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-page-escolas',
@@ -30,8 +31,12 @@ export class PageEscolasComponent implements OnInit {
       this.formCidadeControl.setValue(this.location.city);
       this.escolaService.getEscolasWithFilters(this.location.city, this.location.region).subscribe((dadosEscolas: IResponseEscola) => {
         this.escolas = dadosEscolas.data;
-        console.log(this.escolas);
       });
+
+      this.formCidadeControl.valueChanges.pipe(distinctUntilChanged(), startWith(''))
+        .subscribe(formValue => {
+
+        });
     });
   }
 
