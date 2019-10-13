@@ -1,8 +1,14 @@
-<div>
+<div *ngIf="barChartConf && pieChartsConf; else loading">
     <app-search (valueChange)='selectedStateValue($event)'></app-search>
 
-    <div *ngIf="barChartConf">
+    <div>
         <app-charts  [chartConfig]="barChartConf" [colors]="colors"></app-charts>
         <app-charts  *ngFor="let conf of pieChartsConf" [chartConfig]="conf" [colors]="colors"></app-charts>
     </div>
 </div>
+
+<ng-template #loading>
+    <div fxLayout="row" fxLayoutAlign="center center" style="width: 100%; height: 100%">
+        <mat-spinner [diameter]="'350'"></mat-spinner>
+    </div>
+</ng-template>
