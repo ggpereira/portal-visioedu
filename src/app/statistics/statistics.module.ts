@@ -15,7 +15,7 @@ import { ChartsComponent } from '../charts/charts.component';
 import { AppModule } from '../app.module';
 import { ChartsComponentModule } from '../charts/charts.module';
 import { SearchComponent } from './page-estados/search/search.component';
-
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [ StatisticsComponent, ButtonComponent, PageEstadosComponent, PageCidadesComponent, PageEscolasComponent, SearchComponent ],
@@ -26,7 +26,8 @@ import { SearchComponent } from './page-estados/search/search.component';
     FormsModule,
     MaterialModule,
     MatAutocompleteModule,
-    ChartsComponentModule
+    ChartsComponentModule,
+    FlexLayoutModule
   ],
   exports: [ SearchComponent ],
   providers: []

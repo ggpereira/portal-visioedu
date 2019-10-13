@@ -9,13 +9,12 @@ import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 })
 export class ButtonComponent implements OnInit {
   @Input() buttonName: string;
-  @Input() buttonBackgroundImage: string;
-  safeStyle: SafeStyle;
+  // @Input() buttonBackgroundImage: string;
 
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor() { }
 
   ngOnInit() {
-    this.safeStyle = this.sanitizer.bypassSecurityTrustStyle(`url(${this.buttonBackgroundImage})`);
+    // this.safeStyle = this.sanitizer.bypassSecurityTrustStyle(`url(${this.buttonBackgroundImage})`);
   }
 
 }
