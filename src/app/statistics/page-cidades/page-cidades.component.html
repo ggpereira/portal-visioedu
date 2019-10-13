@@ -1,5 +1,5 @@
 <div *ngIf="barChartConf && pieChartsConf && estatisticas; else loading">
-  <div fxLayout="row" style="display:flex">
+  <div fxLayout="row">
     <div style="width: 40%">
       <app-search [defaultStateName]="currentStateName" (valueChange)='setCurrentStateValue($event)'></app-search>
     </div>
