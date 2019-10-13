@@ -33,6 +33,36 @@ export interface IEscola {
     tp_localizacao_diferenciada: number;
 }
 
+export interface IViewEscola {
+    co_ntidade: number;
+    no_entidade: string;
+    situacao_funcionamento: string; // 1 - Em ativdade 2 - Paralisada 3 - Extinta no ano do censo 4 - Extinta em anos anteriores
+    co_regiao: number;
+    co_uf: number;
+    co_municipio: number;
+    dependencia: string;          // 1 - Federal 2 - Estadual 3 - municipial 4 - privada
+    tp_localização: number;
+    agua_filtrada: string;
+    agua_inexistente: string;
+    energia_inexistente: string;
+    reciclagem: string;
+    coletaDeLixo: string;
+    laboratorioDeInformatica: string;
+    salaAtendimentoEspecial: string;
+    laboratorioCiencias: string;
+    salaLeitura: string;
+    qtSalas: number;
+    qtSalasUtilizadas: number;
+    retroprojetor: string;
+    equipamentoMultimidia: string;
+    qtCompAluno: number;
+    internet: string;
+    bandaLarga: string;
+    qtFuncionarios: number;
+    tp_aee: string; // 0 - Não oferece 1 - Não exclusivamente 2 - Exclusivamente
+    tp_localizacao_diferenciada: string;
+}
+
 export interface IResponseEscola {
     data: Array<IEscola>;
     maxPages: number;

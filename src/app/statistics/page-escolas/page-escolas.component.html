@@ -6,10 +6,10 @@
         <form>
             <mat-form-field class="search-box-size">
                 <input type="text" placeholder="Digite um municipio" aria-label="Municipio" matInput
-                    [formControl]="formCidadeControl" [matAutocomplete]="auto">
-                <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option>
-    
+                    [formControl]="formCidadeControl" [matAutocomplete]="autoCidade">
+                <mat-autocomplete #autoCidade="matAutocomplete">
+                    <mat-option *ngFor="let dados of dadosCidades" [value]="dados.municipio"> 
+                        {{ dados.municipio }}
                     </mat-option>
                 </mat-autocomplete>
             </mat-form-field>
@@ -19,14 +19,17 @@
         <form>
             <mat-form-field class="search-box-size">
                 <input type="text" placeholder="Digite uma escola" aria-label="Escola" matInput
-                    [formControl]="formEscolaControl" [matAutocomplete]="auto">
-                <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option>
-    
+                    [formControl]="formEscolaControl" [matAutocomplete]="autoEscola">
+                <mat-autocomplete #autoEscola="matAutocomplete">
+                    <mat-option *ngFor="let dados of dadosEscolas" [value]="dados.no_entidade">
+                        {{ dados.no_entidade }}
                     </mat-option>
                 </mat-autocomplete>
             </mat-form-field>
         </form>
     </div>
+</div>
 
+<div>
+    
 </div>
