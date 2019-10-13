@@ -15,3 +15,24 @@
 .search-box-size {
   width: 100%;
 }
+
+.card{
+  width: 40%;
+  height: 60%;
+  min-width: 730px;
+  min-height: 475px;
+  margin: 10px;
+}
+
+mat-card-header{
+    width: 100%;
+    justify-content: center;
+}
+
+mat-card-subtitle{
+    margin-left: 35%;
+}
+
+mat-card-title{
+    white-space: nowrap;
+}

@@ -8,7 +8,7 @@
                 <input type="text" placeholder="Digite um municipio" aria-label="Municipio" matInput
                     [formControl]="formCidadeControl" [matAutocomplete]="autoCidade">
                 <mat-autocomplete #autoCidade="matAutocomplete">
-                    <mat-option *ngFor="let dados of dadosCidades" [value]="dados.municipio"> 
+                    <mat-option *ngFor="let dados of dadosCidades" [value]="dados.municipio" (onSelectionChange)="onCidadeSelection($event)"> 
                         {{ dados.municipio }}
                     </mat-option>
                 </mat-autocomplete>
@@ -21,7 +21,7 @@
                 <input type="text" placeholder="Digite uma escola" aria-label="Escola" matInput
                     [formControl]="formEscolaControl" [matAutocomplete]="autoEscola">
                 <mat-autocomplete #autoEscola="matAutocomplete">
-                    <mat-option *ngFor="let dados of dadosEscolas" [value]="dados.no_entidade">
+                    <mat-option *ngFor="let dados of dadosEscolas" [value]="dados.no_entidade" (onSelectionChange)="onEscolaSelection($event)">
                         {{ dados.no_entidade }}
                     </mat-option>
                 </mat-autocomplete>
@@ -29,7 +29,29 @@
         </form>
     </div>
 </div>
-
-<div>
-    
+<div class="teste">
+<mat-card class="card" *ngIf="escolaAtual">
+    <mat-card-header>
+        <mat-card-title style='font-size: 28px'>
+            <div>
+                <div style="text-align: center;">
+                    <mat-icon style="font-size: 60px; color: #4FA8EE">school</mat-icon>
+                </div>
+                {{  escolaAtual.no_entidade }}
+            </div>
+        </mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-list *ngIf="listaEscolaDados">
+            <h3 style="font-size: 20px" mat-subheader>Informações Gerais</h3>
+            <mat-divider></mat-divider>
+            <mat-list-item *ngFor="let dados of listaEscolaDados">
+                <mat-icon style="font-size: 32px;" [ngStyle]="{'color': dados.color}" mat-list-icon>{{ dados.icon }}</mat-icon>
+                <h4 mat-line>{{ dados.label }}</h4>
+                <p mat-line>{{ dados.value }}</p>
+            </mat-list-item>
+        </mat-list>
+    </mat-card-content>
+</mat-card>
 </div>

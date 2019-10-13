@@ -39,6 +39,8 @@ export class EscolaService {
       params = params.append('no_entidade', nome);
     }
 
+    params = params.append('transformar', 'true');
+
     return this.http.get<IResponseEscola>(environment.host + 'escolas', {params});
   }
 

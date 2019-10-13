@@ -20,6 +20,8 @@ export class PageEscolasComponent implements OnInit {
   ufAtual: string;
   dadosCidades: Array<ICidade>;
   dadosEscolas: Array<IEscola>;
+  escolaAtual: IEscola;
+  listaEscolaDados: Array<any> = [];
 
   formCidadeControl: FormControl = new FormControl();
   formEscolaControl: FormControl = new FormControl();
@@ -51,8 +53,38 @@ export class PageEscolasComponent implements OnInit {
           this.escolaService.getEscolasWithFilters(this.cidadeAtual, this.estadoAtual, formValue)
             .subscribe((data: IResponseEscola) => {
               this.dadosEscolas = data.data;
+              console.log(this.dadosEscolas);
             });
         });
+    });
+  }
+
+  onCidadeSelection(value) {
+    console.log(value.source.value);
+    console.log(value.source);
+  }
+
+  onEscolaSelection(value) {
+    this.escolaAtual = this.findEscola(value.source.value);
+    this.fillListEscolas(this.escolaAtual);
+  }
+
+  fillListEscolas(dadosEscola: IEscola) {
+    this.listaEscolaDados = [];
+    // tslint:disable-next-line: max-line-length
+    this.listaEscolaDados.push({ label: 'Situação Funcionamento', value: dadosEscola.situacao_funcionamento, icon: 'info', color: '#9493EA'});
+    this.listaEscolaDados.push({ label: 'Dependência', value: dadosEscola.dependencia, icon: 'info', color: '#900C3F' });
+    this.listaEscolaDados.push({ label: 'Tipo de Localização', value: dadosEscola.tp_localizacao, icon: 'terrain', color: '#D85426'});
+    this.listaEscolaDados.push({ label: 'Quantidade de Funcionários', value: dadosEscola.qtFuncionarios, icon: 'person', color: '#6E16CB'});
+    this.listaEscolaDados.push({ label: 'Quantidade de Salas', value: dadosEscola.qtSalas, icon: 'meeting_room', color: '#FFC300'});
+    this.listaEscolaDados.push({ label: 'Salas Utilizadas', value: dadosEscola.qtSalasUtilizadas, icon: 'meeting_room', color: '#FF5733' });
+    // tslint:disable-next-line: max-line-length
+    this.listaEscolaDados.push({ label: 'Atendimento Educacional Especializado', value: dadosEscola.tp_aee, icon: 'supervisor_account', color: '#7BCAC7'});
+  }
+
+  findEscola(nome: string): IEscola {
+    return this.escolas.find((escola: IEscola) => {
+      return escola.no_entidade === nome;
     });
   }
 
