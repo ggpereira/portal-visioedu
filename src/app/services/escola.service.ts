@@ -14,7 +14,7 @@ export class EscolaService {
     Retorna dados de escolas
   */
 
-  getEscolas(perPage?: number, page?: number, filter?: any): Observable<IResponseEscola> {
+  getEscolas(perPage?: number, page?: number): Observable<IResponseEscola> {
     let params = new HttpParams();
 
     if (perPage !== undefined) {
@@ -26,6 +26,20 @@ export class EscolaService {
     }
 
     return this.http.get<IResponseEscola>(environment.host + 'escolas', { params });
+  }
+
+  /*
+    Retorna dados de escolas filtrados por estado e cidade e nome(opcional)
+  */
+  getEscolasWithFilters(municipio: string, estado: string, nome?: string): Observable<IResponseEscola> {
+    let params = new HttpParams();
+    params = params.append('municipio', municipio);
+    params = params.append('estado', estado);
+    if (nome !== undefined) {
+      params = params.append('no_entidade', nome);
+    }
+
+    return this.http.get<IResponseEscola>(environment.host + 'escolas', {params});
   }
 
 }
