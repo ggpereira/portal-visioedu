@@ -13,7 +13,7 @@ export class StatisticsComponent implements OnInit {
   ngOnInit() {}
 
   goViewEscolas() {
-    console.log('ir para view escolas');
+    console.log('ir para view escolas' );
   }
 
   goViewEstados() {
