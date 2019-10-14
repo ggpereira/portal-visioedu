@@ -172,6 +172,7 @@ export class PageEscolasComponent implements OnInit {
     this.estadoAtual = value.estado;
     this.ufAtual = value.uf;
     this.formCidadeControl.reset();
+    this.formEscolaControl.reset();
   }
 
 }

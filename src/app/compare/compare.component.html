@@ -1,6 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="start start">
     <div style="width: 25%">
-        <app-search [defaultStateName]="estadoAtual"></app-search>
+        <app-search [defaultStateName]="estadoAtual" (valueChange)='selectedStateValue($event)'></app-search>
     </div>
     <div class="city-search-box-container">
         <form>
