@@ -52,4 +52,19 @@ export class EnemService {
         })
       );
   }
+
+  getMediaEscola(codEscola?: number): Observable<Array<IMediasEnem>> {
+    let params = new HttpParams();
+
+    if (codEscola !== undefined){
+      params = params.append('co_entidade', codEscola.toString());
+    }
+
+    return this.httpClient.get<IResponseMediasEnem>(environment.host + 'medias/escolas/', {params})
+      .pipe(
+        map((response: IResponseMediasEnem) => {
+            return response.data;
+        })
+      );
+  }
 }

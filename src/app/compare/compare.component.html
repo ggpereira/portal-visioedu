@@ -1,0 +1,179 @@
+<div fxLayout="row" fxLayoutAlign="start start">
+    <div style="width: 25%">
+        <app-search [defaultStateName]="estadoAtual"></app-search>
+    </div>
+    <div class="city-search-box-container">
+        <form>
+            <mat-form-field class="search-box-size">
+                <input type="text" placeholder="Digite um municipio" aria-label="Municipio" matInput
+                    [formControl]="formCidadeControl" [matAutocomplete]="autoCidade">
+                <mat-autocomplete #autoCidade="matAutocomplete">
+                    <mat-option *ngFor="let dados of dadosCidades" [value]="dados.municipio"
+                        (onSelectionChange)='onSelectionCidade($event)'>
+                        {{ dados.municipio }}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </form>
+    </div>
+    <div class="school-search-box-container">
+        <form>
+            <mat-form-field class="search-box-size">
+                <input type="text" placeholder="Digite uma escola" aria-label="Escola" matInput
+                    [formControl]="formEscolaControl" [matAutocomplete]="autoEscola">
+                <mat-autocomplete #autoEscola="matAutocomplete">
+                    <mat-option *ngFor="let dados of dadosEscolas" [value]="dados.no_entidade"
+                        (onSelectionChange)='onSelectionEscola($event)'>
+                        {{ dados.no_entidade }}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </form>
+    </div>
+</div>
+
+<div>
+    <div style="margin-left:8%;">
+        <mat-card *ngIf="escola && escolaMedias">
+            <mat-card-title>
+                <mat-icon>school</mat-icon>
+                <span> {{escola.no_entidade}}</span>
+            </mat-card-title>
+            <mat-card-content>
+                <br>
+                <mat-card-subtitle>Médias do ENEM</mat-card-subtitle>
+                <div class="container">
+                    <div style="margin:10px;">
+                        <ul>
+                            <li><span><b>Média Ciências Humanas: </b> {{escolaMedias.mediaCh.toFixed(2)}}</span></li>
+                            <hr>
+                            <li><span><b>Média Ciências Naturais: </b> {{escolaMedias.mediaCn.toFixed(2)}}</span></li>
+                            <hr>
+                            <li><span><b>Média Ciências Linguagens: </b> {{escolaMedias.mediaLc.toFixed(2)}}</span></li>
+                            <hr>
+                            <li><span><b>Média Ciências Matemática: </b> {{escolaMedias.mediaMat.toFixed(2)}}</span>
+                            </li>
+                            <hr>
+                            <li><span><b>Média Ciências Redação: </b> {{escolaMedias.mediaRedacao.toFixed(2)}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <br>
+                <mat-card-subtitle>Infraestrutura</mat-card-subtitle>
+                <div class="container">
+                    <div style="margin:10px;">
+                        <ul>
+                            <li><span><b>Escola: </b> {{escola.no_entidade}}</span></li>
+                            <hr>
+                            <li><span><b>Água: </b> {{escola.in_agua_inexistente}}</span></li>
+                            <hr>
+                            <li><span><b>Água Filtrada: </b> {{escola.in_agua_filtrada}}</span></li>
+                            <hr>
+                            <li><span><b>Esgoto: </b> {{escola.in_esgoto_inexistente}}</span></li>
+                            <hr>
+                            <li><span><b>Energia Elétrica: </b> {{escola.in_energia_inexistente}}</span></li>
+                            <hr>
+                            <li><span><b>Reciclagem: </b> {{escola.in_lixo_recicla}}</span></li>
+                            <hr>
+                            <li><span><b>Coleta Periódica: </b> {{escola.in_lixo_coleta_periodica}}</span></li>
+                            <hr>
+                            <li><span><b>Laboratório de Informática: </b> {{escola.in_laboratorio_informatica}}</span>
+                            </li>
+                            <hr>
+                            <li><span><b>Internet: </b> {{escola.in_internet}}</span></li>
+                            <hr>
+                            <li><span><b>Banda-Larga: </b> {{escola.in_banda_larga}}</span></li>
+                            <hr>
+                            <li><span><b>Laboratório de Ciências: </b> {{escola.in_laboratorio_ciencia}}</span></li>
+                            <hr>
+                            <li><span><b>Sala de Atendimento Especial: </b>
+                                    {{escola.in_sala_atendimento_especial}}</span></li>
+                            <hr>
+                            <li><span><b>Sala de Leitura: </b> {{escola.in_sala_leitura}}</span></li>
+                            <hr>
+                            <li><span><b>Biblioteca e Sala de Leitura: </b> {{escola.in_biblioteca_sala_leitura}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <mat-card *ngIf="data">
+            <mat-card-title>
+                <mat-icon> {{data.icon}} </mat-icon>
+                <span> {{(data.lugar).toUpperCase()}} </span>
+            </mat-card-title>
+            <mat-card-content>
+                <br>
+                <mat-card-subtitle>Médias do ENEM</mat-card-subtitle>
+                <div class="container">
+                    <div style="margin:10px;">
+                        <ul>
+                            <li><span><b>Média Ciências Humanas: </b> {{data.mediaCh.toFixed(2)}}</span></li>
+                            <hr>
+                            <li><span><b>Média Ciências Naturais: </b> {{data.mediaCn.toFixed(2)}}</span></li>
+                            <hr>
+                            <li><span><b>Média Ciências Linguagens: </b> {{data.mediaLc.toFixed(2)}}</span></li>
+                            <hr>
+                            <li><span><b>Média Ciências Matemática: </b> {{data.mediaMat.toFixed(2)}}</span></li>
+                            <hr>
+                            <li><span><b>Média Ciências Redação: </b> {{data.mediaRedacao.toFixed(2)}}</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <br>
+                <mat-card-subtitle>Infraestrutura</mat-card-subtitle>
+                <div class="container">
+                    <div style="margin:10px;">
+                        <ul>
+                            <li><span><b>Quantidade de Escolas: </b> {{data.qtdEscolas}} escolas</span></li>
+                            <hr>
+                            <li><span><b>Escolas com Água: </b> {{(1-data.aguaInexistente)*100}}% das escolas</span>
+                            </li>
+                            <hr>
+                            <li><span><b>Escolas com Água Filtrada: </b> {{data.aguaFiltrada*100}}% das escolas</span>
+                            </li>
+                            <hr>
+                            <li><span><b>Escolas com Esgoto: </b> {{(1-data.esgotoInexistente)*100}}% das escolas</span>
+                            </li>
+                            <hr>
+                            <li><span><b>Escolas com Energia: </b> {{(1-data.energiaInexistente)*100}}% das
+                                    escolas</span></li>
+                            <hr>
+                            <li><span><b>Escolas com Reciclagem: </b> {{data.lixoRecicla*100}}% das escolas</span></li>
+                            <hr>
+                            <li><span><b>Escolas com Coleta Periódica: </b> {{data.coletaPeriodica*100}}% das
+                                    escolas</span></li>
+                            <hr>
+                            <li><span><b>Laboratório de Informática: </b> {{data.laboratorioInformatica*100}}% das
+                                    escolas</span>
+                            </li>
+                            <hr>
+                            <li><span><b>Escolas com Internet: </b> {{data.internet*100}}% das escolas</span></li>
+                            <hr>
+                            <li><span><b>Escolas com Banda-Larga: </b> {{data.bandaLarga*100}}% das escolas</span></li>
+                            <hr>
+                            <li><span><b>Laboratório de Ciências: </b> {{data.laboratorioCiencias*100}}% das
+                                    escolas</span></li>
+                            <hr>
+                            <li><span><b>Sala de Atendimento Especial: </b>
+                                    {{data.atendimentoEspecial*100}}% das escolas</span></li>
+                            <hr>
+                            <li><span><b>Sala de Leitura: </b> {{data.salaLeitura*100}}% das escolas</span></li>
+                            <hr>
+                            <li><span><b>Biblioteca: </b> {{data.biblioteca*100}}% das escolas</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </mat-card-content>
+            <mat-card-footer>
+                <mat-card-actions style="text-align: center;">
+                    <button mat-button style="background-color: aquamarine" (click)='mudarDadosCidade()'>Cidade</button>
+                    <button mat-button style="background-color: aquamarine" (click)='mudarDadosEstado()'>Estado</button>
+                </mat-card-actions>
+            </mat-card-footer>
+        </mat-card>
+    </div>
+</div>
