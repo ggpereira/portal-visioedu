@@ -82,6 +82,7 @@ export class PageEscolasComponent implements OnInit {
 
   onCidadeSelection(value) {
     this.cidadeAtual = value.source.value;
+    this.formEscolaControl.reset();
   }
 
   onEscolaSelection(value) {
@@ -168,7 +169,9 @@ export class PageEscolasComponent implements OnInit {
   }
 
   selectedStateValue(value) {
-    this.estadoAtual = value;
+    this.estadoAtual = value.estado;
+    this.ufAtual = value.uf;
+    this.formCidadeControl.reset();
   }
 
 }
