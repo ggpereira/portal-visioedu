@@ -40,6 +40,7 @@ export class CompareComponent implements OnInit {
   formCidadeControl: FormControl = new FormControl();
   formEscolaControl: FormControl = new FormControl();
 
+  // tslint:disable-next-line: max-line-length
   constructor(private escolaService: EscolaService, private statisticsService: StatisticsService, private locationService: LocationService, private enemService: EnemService) {
   }
 
@@ -75,9 +76,9 @@ export class CompareComponent implements OnInit {
 
   getMediaEscola(escola: IEscola) {
     this.escola = escola;
-    this.enemService.getMediaEscola(escola.co_entidade).subscribe((dadosMedias: Array<IMediasEnem>) => {
-      this.escolaMedias = dadosMedias[0];
-    })
+    this.enemService.getMediaByCodEscola(escola.co_entidade).subscribe((dadosMedias: IMediasEnem) => {
+      this.escolaMedias = dadosMedias;
+    });
   }
 
   findEscolaEstatisticas(nome: string) {
@@ -89,14 +90,14 @@ export class CompareComponent implements OnInit {
   getMediaCidade(cidade: IEstatisticasCidade) {
     this.enemService.getMediasCidades(cidade.municipio, this.estadoAtual).subscribe((dadosMedias: Array<IMediasEnem>) => {
       this.cidadeMedias = dadosMedias[0];
-      this.mudarDadosCidade(this.cidadeMedias,this.cidade);
-    })
+      this.mudarDadosCidade(this.cidadeMedias, this.cidade);
+    });
   }
 
-  getMediaEstado(estado: IEstatisticasEstado){
+  getMediaEstado(estado: IEstatisticasEstado) {
     this.enemService.getMediasEstados(estado.estado).subscribe((dadosMedias: Array<IMediasEnem>) => {
-      this.estadoMedias= dadosMedias[0];
-    })
+      this.estadoMedias = dadosMedias[0];
+    });
   }
 
   findCidadeEstatisticas(nomeCidade: string, nomeEstado: string) {
@@ -123,9 +124,9 @@ export class CompareComponent implements OnInit {
   onSelectionCidade(value) {
   }
 
-  mudarDadosCidade(cidade: any, cidadeMedia: any){
+  mudarDadosCidade(cidade: any, cidadeMedia: any) {
     this.data = {
-      icon: "location_city",
+      icon: 'location_city',
       lugar: this.cidade.municipio,
       aguaFiltrada: this.cidade.porcentagemAguaFiltrada,
       aguaInexistente: this.cidade.porcentagemAguaInexistente,
@@ -147,13 +148,13 @@ export class CompareComponent implements OnInit {
       mediaRedacao: this.cidadeMedias.mediaRedacao,
       mediaMat: this.cidadeMedias.mediaMat,
       mediaGeral: this.cidadeMedias.mediaGeral
-    }
+    };
     console.log(this.data);
   }
 
-  mudarDadosEstado(){
+  mudarDadosEstado() {
     this.data = {
-      icon: "terrain",
+      icon: 'terrain',
       lugar: this.estado.estado,
       aguaFiltrada: this.estado.porcentagemAguaFiltrada,
       aguaInexistente: this.estado.porcentagemAguaInexistente,
@@ -175,7 +176,7 @@ export class CompareComponent implements OnInit {
       mediaRedacao: this.estadoMedias.mediaRedacao,
       mediaMat: this.estadoMedias.mediaMat,
       mediaGeral: this.estadoMedias.mediaGeral
-    }
+    };
     console.log(this.estado);
   }
 
