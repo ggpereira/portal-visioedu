@@ -1,0 +1,55 @@
+.city-search-box-container {
+    // margin: auto;
+    margin-top: 20px;
+    margin-left: 2px;
+    width: 30%;
+  }
+  
+  .school-search-box-container {
+    // margin: auto;
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 30%;
+  }
+    
+  .search-box-size {
+    width: 100%;
+  }
+
+mat-card {
+  margin: 10px;
+  float: left;
+  width: 30%;
+  height: 39%;
+  min-height: 340px;
+  min-width: 395px;
+}
+
+mat-card-title {
+  text-overflow: ellipsis;
+  overflow: hidden; 
+  width: 100%; 
+  height: 1.2em; 
+  white-space: nowrap;
+  text-align: center;
+}
+
+mat-card-subtitle{
+  width: 100%; 
+  text-align: center;
+}
+
+.container {
+  margin-bottom: 10px;
+  border: 1px solid black;
+  opacity: 0.6;
+}
+
+ul,li {
+        list-style-position:inside;
+        margin:0;
+        padding:0; 
+        text-overflow: ellipsis;
+        overflow: hidden; 
+        white-space: nowrap;
+}

@@ -18,13 +18,15 @@ import { EscolaService } from './services/escola.service';
 import { StatisticsModule } from './statistics/statistics.module';
 import { ChartsComponentModule } from './charts/charts.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { CompareComponent } from './compare/compare.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    SobreComponent
+    SobreComponent,
+    CompareComponent
   ],
   imports: [
     HttpClientModule,
