@@ -66,13 +66,9 @@ export class CompareComponent implements OnInit {
       // Entrada de escolas
       this.formEscolaControl.valueChanges.pipe(distinctUntilChanged(), startWith(''))
         .subscribe(formValue => {
-          console.log(this.estadoAtual);
-          console.log(this.cidadeAtual);
-          console.log(formValue);
           this.escolaService.getEscolasWithFilters(this.cidadeAtual, this.estadoAtual, formValue)
             .subscribe((data: IResponseEscola) => {
               this.dadosEscolas = data.data;
-              console.log(this.dadosEscolas);
             });
         });
     });
@@ -80,6 +76,7 @@ export class CompareComponent implements OnInit {
 
   getMediaEscola(escola: IEscola) {
     this.escola = escola;
+    console.log(escola);
     this.enemService.getMediaByCodEscola(escola.co_entidade).subscribe((dadosMedias: IMediasEnem) => {
       this.escolaMedias = dadosMedias;
     });
@@ -114,7 +111,6 @@ export class CompareComponent implements OnInit {
   findEstadoEstatisticas(nomeEstado: string) {
     this.statisticsService.getEstatisticasEstado(nomeEstado).subscribe((response: Array<IEstatisticasEstado>) => {
       this.estado = response[0];
-      console.log(response[0]);
       this.getMediaEstado(this.estado);
     });
   }
@@ -155,7 +151,6 @@ export class CompareComponent implements OnInit {
       mediaMat: this.cidadeMedias.mediaMat,
       mediaGeral: this.cidadeMedias.mediaGeral
     };
-    console.log(this.data);
   }
 
   mudarDadosEstado() {
@@ -183,7 +178,6 @@ export class CompareComponent implements OnInit {
       mediaMat: this.estadoMedias.mediaMat,
       mediaGeral: this.estadoMedias.mediaGeral
     };
-    console.log(this.estado);
   }
 
   selectedStateValue(value) {
