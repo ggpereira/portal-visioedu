@@ -16,12 +16,21 @@
   width: 100%;
 }
 
-.card{
+.card-inf{
   width: 40%;
-  height: 60%;
-  min-width: 730px;
-  min-height: 475px;
+  height: 70%;
+  min-width: 450px;
+  min-height: 725px;
   margin: 10px;
+  float: left;
+}
+.card-general{
+  width: 40%;
+  // height: 60%;
+  margin: 10px;
+  min-width: 450px;
+  min-height: 725px;
+  float: left;
 }
 
 mat-card-header{

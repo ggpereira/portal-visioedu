@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
-import { IMediasEnem, IResponseMediasEnem } from '../shared/models/enem';
+import { IMediasEnem, IResponseMediasEnem, IResponseDadosEnem } from '../shared/models/enem';
 
 @Injectable({
   providedIn: 'root'
@@ -51,5 +51,9 @@ export class EnemService {
           return response.data;
         })
       );
+  }
+
+  getMediaByCodEscola(codEscola: number): Observable<IMediasEnem> {
+    return this.httpClient.get<IMediasEnem>(environment.host + `medias/escolas/${codEscola}`);
   }
 }

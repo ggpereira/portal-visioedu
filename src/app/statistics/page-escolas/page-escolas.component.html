@@ -1,6 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="start start">
     <div style="width: 25%">
-        <app-search [defaultStateName]="estadoAtual"></app-search>
+        <app-search [defaultStateName]="estadoAtual" (valueChange)='selectedStateValue($event)'></app-search>
     </div>
     <div class="city-search-box-container">
         <form>
@@ -8,7 +8,8 @@
                 <input type="text" placeholder="Digite um municipio" aria-label="Municipio" matInput
                     [formControl]="formCidadeControl" [matAutocomplete]="autoCidade">
                 <mat-autocomplete #autoCidade="matAutocomplete">
-                    <mat-option *ngFor="let dados of dadosCidades" [value]="dados.municipio" (onSelectionChange)="onCidadeSelection($event)"> 
+                    <mat-option *ngFor="let dados of dadosCidades" [value]="dados.municipio"
+                        (onSelectionChange)="onCidadeSelection($event)">
                         {{ dados.municipio }}
                     </mat-option>
                 </mat-autocomplete>
@@ -21,7 +22,8 @@
                 <input type="text" placeholder="Digite uma escola" aria-label="Escola" matInput
                     [formControl]="formEscolaControl" [matAutocomplete]="autoEscola">
                 <mat-autocomplete #autoEscola="matAutocomplete">
-                    <mat-option *ngFor="let dados of dadosEscolas" [value]="dados.no_entidade" (onSelectionChange)="onEscolaSelection($event)">
+                    <mat-option *ngFor="let dados of dadosEscolas" [value]="dados.no_entidade"
+                        (onSelectionChange)="onEscolaSelection($event)">
                         {{ dados.no_entidade }}
                     </mat-option>
                 </mat-autocomplete>
@@ -29,8 +31,8 @@
         </form>
     </div>
 </div>
-<div class="teste">
-<mat-card class="card" *ngIf="escolaAtual">
+
+<mat-card class="card-inf" *ngIf="escolaAtual">
     <mat-card-header>
         <mat-card-title style='font-size: 28px'>
             <div>
@@ -47,11 +49,63 @@
             <h3 style="font-size: 20px" mat-subheader>Informações Gerais</h3>
             <mat-divider></mat-divider>
             <mat-list-item *ngFor="let dados of listaEscolaDados">
-                <mat-icon style="font-size: 32px;" [ngStyle]="{'color': dados.color}" mat-list-icon>{{ dados.icon }}</mat-icon>
+                <mat-icon style="font-size: 32px;" [ngStyle]="{'color': dados.color}" mat-list-icon>{{ dados.icon }}
+                </mat-icon>
                 <h4 mat-line>{{ dados.label }}</h4>
                 <p mat-line>{{ dados.value }}</p>
             </mat-list-item>
         </mat-list>
     </mat-card-content>
 </mat-card>
-</div>
+
+<mat-card class="card-general" *ngIf="escolaAtual">
+    <mat-card-header>
+        <mat-card-title style='font-size: 28px'>
+            <div>
+                <div style="text-align: center;">
+                    <mat-icon style="font-size: 60px; color:#3EBF9F">category</mat-icon>
+                </div>
+                Estrutura da Escola
+            </div>
+        </mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-list *ngIf="listaEstruturaEscolas1">
+            <mat-divider></mat-divider>
+            <mat-list-item *ngFor="let dados of listaEstruturaEscolas1">
+                <mat-icon style="font-size: 32px;" [ngStyle]="{'color': dados.color}" mat-list-icon>{{ dados.icon }}
+                </mat-icon>
+                <h4 mat-line>{{ dados.label }}</h4>
+                <p mat-line>{{ dados.value }}</p>
+            </mat-list-item>
+        </mat-list>
+    </mat-card-content>
+</mat-card>
+
+<mat-card class="card-general" *ngIf="escolaAtual">
+    <mat-card-header>
+        <mat-card-title style='font-size: 28px'>
+            <div>
+                <div style="text-align: center;">
+                    <mat-icon style="font-size: 60px; color:#3EBF9F">category</mat-icon>
+                </div>
+                Estrutura da Escola
+            </div>
+        </mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-list *ngIf="listaEstruturaEscolas2">
+            <mat-divider></mat-divider>
+            <mat-list-item *ngFor="let dados of listaEstruturaEscolas2">
+                <mat-icon style="font-size: 32px;" [ngStyle]="{'color': dados.color}" mat-list-icon>{{ dados.icon }}
+                </mat-icon>
+                <h4 mat-line>{{ dados.label }}</h4>
+                <p mat-line>{{ dados.value }}</p>
+            </mat-list-item>
+        </mat-list>
+    </mat-card-content>
+</mat-card>
+
+<app-charts *ngIf="barChartConf" [chartConfig]="barChartConf" [colors]="colors"></app-charts>
