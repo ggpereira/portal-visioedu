@@ -9,6 +9,7 @@ import { ICidade } from '../../shared/models/cidade';
 import { EnemService } from '../../services/enem.service';
 import { IMediasEnem } from 'src/app/shared/models/enem';
 import { ChartConf } from 'src/app/charts/charts.component';
+import { EscolaViewData, EscolaInfoData } from 'src/app/shared/models/escola';
 
 @Component({
   selector: 'app-page-escolas',
@@ -24,9 +25,9 @@ export class PageEscolasComponent implements OnInit {
   dadosCidades: Array<ICidade>;
   dadosEscolas: Array<IEscola>;
   escolaAtual: IEscola;
-  listaEscolaDados: Array<any> = [];
-  listaEstruturaEscolas1: Array<any> = [];
-  listaEstruturaEscolas2: Array<any> = [];
+  escolaViewData = EscolaViewData;
+  escolaViewInfo = EscolaInfoData;
+  objectKeys = Object.keys;
 
   mediasEnem: IMediasEnem;
   barChartConf: ChartConf;
@@ -57,10 +58,9 @@ export class PageEscolasComponent implements OnInit {
       this.estadoAtual = this.location.region;
       this.ufAtual = this.location.region_code;
       this.formCidadeControl.setValue(this.location.city);
+
       // Dados de escolas
-      this.escolaService.getEscolasWithFilters(this.location.city, this.location.region).subscribe((dadosEscolas: IResponseEscola) => {
-        this.escolas = dadosEscolas.data;
-      });
+      this.getEscolasPorCidade(this.location.city, this.location.region);
 
       // Entrada de busca
       this.formCidadeControl.valueChanges.pipe(distinctUntilChanged(), startWith(''))
@@ -74,6 +74,7 @@ export class PageEscolasComponent implements OnInit {
         .subscribe(formValue => {
           this.escolaService.getEscolasWithFilters(this.cidadeAtual, this.estadoAtual, formValue)
             .subscribe((data: IResponseEscola) => {
+              // Pega por nome
               this.dadosEscolas = data.data;
             });
         });
@@ -81,17 +82,20 @@ export class PageEscolasComponent implements OnInit {
   }
 
   onCidadeSelection(value) {
+    console.log(value.source.value);
     this.cidadeAtual = value.source.value;
     this.formEscolaControl.reset();
+    this.getEscolasPorCidade(this.cidadeAtual, this.estadoAtual);
   }
 
   onEscolaSelection(value) {
+    console.log(value.source.value);
     this.escolaAtual = this.findEscola(value.source.value);
-    this.fillListEscolas(this.escolaAtual);
-    this.fillEstruturaEscola(this.escolaAtual);
+    console.log(this.escolaAtual);
+    this.fillViewInfoEscolas(this.escolaAtual);
+    this.fillViewEstruturaEscolas(this.escolaAtual);
     this.enemService.getMediaByCodEscola(this.escolaAtual.co_entidade).subscribe((data: IMediasEnem) => {
       this.mediasEnem = data;
-      console.log('passa por aqui');
       this.barChartConf = {
         title: 'Médias Enem',
         iconName: 'bar_chart',
@@ -120,51 +124,67 @@ export class PageEscolasComponent implements OnInit {
     });
   }
 
-  fillListEscolas(dadosEscola: IEscola) {
-    this.listaEscolaDados = [];
-    // tslint:disable-next-line: max-line-length
-    this.listaEscolaDados.push({ label: 'Situação Funcionamento', value: dadosEscola.situacao_funcionamento, icon: 'info', color: '#9493EA'});
-    this.listaEscolaDados.push({ label: 'Dependência', value: dadosEscola.dependencia, icon: 'info', color: '#900C3F' });
-    this.listaEscolaDados.push({ label: 'Tipo de Localização', value: dadosEscola.tp_localizacao, icon: 'terrain', color: '#D85426'});
-    this.listaEscolaDados.push({ label: 'Quantidade de Funcionários', value: dadosEscola.qtFuncionarios, icon: 'person', color: '#6E16CB'});
-    this.listaEscolaDados.push({ label: 'Quantidade de Salas', value: dadosEscola.qtSalas, icon: 'meeting_room', color: '#FFC300'});
-    this.listaEscolaDados.push({ label: 'Salas Utilizadas', value: dadosEscola.qtSalasUtilizadas, icon: 'meeting_room', color: '#FF5733' });
-    // tslint:disable-next-line: max-line-length
-    this.listaEscolaDados.push({ label: 'Atendimento Educacional Especializado', value: dadosEscola.tp_aee, icon: 'supervisor_account', color: '#7BCAC7'});
+  // Preenche dados exibidos no cards relacionados a estrutura
+  fillViewEstruturaEscolas(dadosEscola: IEscola) {
+    console.log(dadosEscola);
+    // Agua
+    this.escolaViewData.Agua.value = dadosEscola.agua;
+    // Agua filtrada
+    this.escolaViewData.AguaFiltrada.value = dadosEscola.agua_filtrada;
+    // Banda larga
+    this.escolaViewData.BandaLarga.value = dadosEscola.bandaLarga;
+    // Biblioteca
+    this.escolaViewData.Biblioteca.value = dadosEscola.biblioteca;
+    // Coleta de lixo
+    this.escolaViewData.ColetaDeLixo.value = dadosEscola.coletaDeLixo;
+    // Energia Elétrica
+    this.escolaViewData.EnergiaEletrica.value = dadosEscola.energia;
+    // Equipamento Multimídia
+    this.escolaViewData.EquipamentoMultimidia.value = dadosEscola.equipamentoMultimidia;
+    // Esgoto
+    this.escolaViewData.Esgoto.value = dadosEscola.esgoto;
+    // Espaço de leitura na biblioteca
+    this.escolaViewData.EspacoDeLeituraBiblioteca.value = dadosEscola.bibliotecaSalaLeitura;
+    // Internet
+    this.escolaViewData.Internet.value = dadosEscola.internet;
+    // Reciclagem
+    this.escolaViewData.Reciclagem.value = dadosEscola.reciclagem;
+    // Sala Atendimento especial
+    this.escolaViewData.SalaAtendimentoEspecial.value = dadosEscola.salaAtendimentoEspecial;
+    // Sala de leitura
+    this.escolaViewData.SalaDeLeitura.value = dadosEscola.salaLeitura;
+    // Laboratório de ciências
+    this.escolaViewData.LaboratorioDeCiencias.value = dadosEscola.laboratorioCiencias;
   }
 
-  fillEstruturaEscola(dadosEscola: IEscola) {
-    this.listaEstruturaEscolas1 = [];
-    this.listaEstruturaEscolas2 = [];
-    // tslint:disable-next-line: max-line-length
-    this.listaEstruturaEscolas1.push({ label: 'Laboratorio de Informática', value: dadosEscola.laboratorioDeInformatica, icon: 'desktop_windows', color: '#3D52C8' });
-    this.listaEstruturaEscolas1.push({ label: 'Internet', value: dadosEscola.internet, icon: 'language', color: '#C65C86' });
-    // tslint:disable-next-line: max-line-length
-    this.listaEstruturaEscolas1.push({ label: 'Banda Larga', value: dadosEscola.bandaLarga, icon: 'settings_input_antenna', color: '#7BCAC7' });
-    this.listaEstruturaEscolas1.push({ label: 'Água Filtrada', value: dadosEscola.agua_filtrada, icon: 'local_drink', color: '#900C3F' });
-    this.listaEstruturaEscolas1.push({ label: 'Água', value: dadosEscola.agua, icon: 'local_drink', color: '#2384FF' });
-    // tslint:disable-next-line: max-line-length
-    this.listaEstruturaEscolas1.push({label: 'Energia Elétrica', value: dadosEscola.energia, icon: 'flash_on', color: '#EEE415' });
-    this.listaEstruturaEscolas1.push({ label: 'Reciclagem', value: dadosEscola.qtSalas, icon: 'info', color: '#FFC300' });
-    this.listaEstruturaEscolas1.push({ label: 'Esgoto', value: dadosEscola.esgoto, icon: 'info', color: '#567569' });
-    // tslint:disable-next-line: max-line-length
-    this.listaEstruturaEscolas2.push({ label: 'Coleta de Lixo', value: dadosEscola.tp_aee, icon: 'info', color: '#7BCAC7' });
-    // tslint:disable-next-line: max-line-length
-    this.listaEstruturaEscolas2.push({ label: 'Laboratório de Ciências', value: dadosEscola.laboratorioCiencias, icon: 'toys', color: '#7BCAC7' });
-    this.listaEstruturaEscolas2.push({ label: 'Biblioteca', value: dadosEscola.biblioteca, icon: 'book', color: '#7BCAC7' });
-    // tslint:disable-next-line: max-line-length
-    this.listaEstruturaEscolas2.push({ label: 'Espaço de Leitura na Biblioteca', value: dadosEscola.bibliotecaSalaLeitura, icon: 'book', color: '#21D977' });
-    // tslint:disable-next-line: max-line-length
-    this.listaEstruturaEscolas2.push({ label: 'Sala para atendimento Especial', value: dadosEscola.salaAtendimentoEspecial, icon: 'supervisor_account', color: '#1A854C' });
-    // tslint:disable-next-line: max-line-length
-    this.listaEstruturaEscolas2.push({ label: 'Equipamento Multimídia', value: dadosEscola.equipamentoMultimidia, icon: 'devices', color: '#900C3F' });
-    // tslint:disable-next-line: max-line-length
-    this.listaEstruturaEscolas2.push({ label: 'Sala de leitura', value: dadosEscola.salaLeitura, icon: 'book', color: '#FF5733'});
+  fillViewInfoEscolas(dadosEscola: IEscola) {
+    // Atendimento educacional especializado
+    this.escolaViewInfo.AtendimentoEducacionalEspecializado.value = dadosEscola.tp_aee;
+    // Dependência
+    this.escolaViewInfo.Dependencia.value = dadosEscola.dependencia;
+    // Quantidade de salas utilizadas
+    this.escolaViewInfo.QuantidadeDeSalasUtilizadas.value = dadosEscola.qtSalasUtilizadas;
+    // Quantidade de funcionários
+    this.escolaViewInfo.QuantidadeFuncionarios.value = dadosEscola.qtFuncionarios;
+    // Quantidade de salas
+    this.escolaViewInfo.QuantidadeSalas.value = dadosEscola.qtSalas;
+    // Situação funcionamento
+    this.escolaViewInfo.SituacaoFuncionamento.value = dadosEscola.situacao_funcionamento;
+    // Tipo de localização
+    this.escolaViewInfo.TipoDeLocalizacao.value = dadosEscola.tp_localizacao;
   }
+
 
   findEscola(nome: string): IEscola {
     return this.escolas.find((escola: IEscola) => {
       return escola.no_entidade === nome;
+    });
+  }
+
+
+  getEscolasPorCidade(cidade: string, estado: string) {
+    this.escolaService.getEscolasWithFilters(cidade, estado).subscribe((dadosEscolas: IResponseEscola) => {
+      this.escolas = dadosEscolas.data;
     });
   }
 

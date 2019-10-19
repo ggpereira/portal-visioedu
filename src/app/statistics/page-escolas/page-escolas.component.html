@@ -45,14 +45,14 @@
         <mat-card-subtitle></mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-        <mat-list *ngIf="listaEscolaDados">
+        <mat-list *ngIf="escolaViewInfo">
             <h3 style="font-size: 20px" mat-subheader>Informações Gerais</h3>
             <mat-divider></mat-divider>
-            <mat-list-item *ngFor="let dados of listaEscolaDados">
-                <mat-icon style="font-size: 32px;" [ngStyle]="{'color': dados.color}" mat-list-icon>{{ dados.icon }}
+            <mat-list-item *ngFor="let property of objectKeys(escolaViewInfo)">
+                <mat-icon style="font-size: 32px;" [ngStyle]="{'color': escolaViewInfo[property].color}" mat-list-icon>{{ escolaViewInfo[property].icon }}
                 </mat-icon>
-                <h4 mat-line>{{ dados.label }}</h4>
-                <p mat-line>{{ dados.value }}</p>
+                <h4 mat-line>{{ escolaViewInfo[property].label }}</h4>
+                <p mat-line>{{ escolaViewInfo[property].value }}</p>
             </mat-list-item>
         </mat-list>
     </mat-card-content>
@@ -71,38 +71,13 @@
         <mat-card-subtitle></mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-        <mat-list *ngIf="listaEstruturaEscolas1">
+        <mat-list *ngIf="escolaViewData">
             <mat-divider></mat-divider>
-            <mat-list-item *ngFor="let dados of listaEstruturaEscolas1">
-                <mat-icon style="font-size: 32px;" [ngStyle]="{'color': dados.color}" mat-list-icon>{{ dados.icon }}
+            <mat-list-item *ngFor="let property of objectKeys(escolaViewData)">
+                <mat-icon style="font-size: 32px;" [ngStyle]="{'color': escolaViewData[property].color}" mat-list-icon>{{ escolaViewData[property].icon }}
                 </mat-icon>
-                <h4 mat-line>{{ dados.label }}</h4>
-                <p mat-line>{{ dados.value }}</p>
-            </mat-list-item>
-        </mat-list>
-    </mat-card-content>
-</mat-card>
-
-<mat-card class="card-general" *ngIf="escolaAtual">
-    <mat-card-header>
-        <mat-card-title style='font-size: 28px'>
-            <div>
-                <div style="text-align: center;">
-                    <mat-icon style="font-size: 60px; color:#3EBF9F">category</mat-icon>
-                </div>
-                Estrutura da Escola
-            </div>
-        </mat-card-title>
-        <mat-card-subtitle></mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-        <mat-list *ngIf="listaEstruturaEscolas2">
-            <mat-divider></mat-divider>
-            <mat-list-item *ngFor="let dados of listaEstruturaEscolas2">
-                <mat-icon style="font-size: 32px;" [ngStyle]="{'color': dados.color}" mat-list-icon>{{ dados.icon }}
-                </mat-icon>
-                <h4 mat-line>{{ dados.label }}</h4>
-                <p mat-line>{{ dados.value }}</p>
+                <h4 mat-line>{{ escolaViewData[property].label }}</h4>
+                <p mat-line>{{ escolaViewData[property].value }}</p>
             </mat-list-item>
         </mat-list>
     </mat-card-content>
