@@ -51,6 +51,7 @@ export class CompareComponent implements OnInit {
       this.estadoAtual = this.location.region;
       this.ufAtual = this.location.region_code;
       this.formCidadeControl.setValue(this.location.city);
+
       // Dados de escolas
       this.escolaService.getEscolasWithFilters(this.location.city, this.location.region).subscribe((dadosEscolas: IResponseEscola) => {
         this.escolas = dadosEscolas.data;
@@ -76,7 +77,6 @@ export class CompareComponent implements OnInit {
 
   getMediaEscola(escola: IEscola) {
     this.escola = escola;
-    console.log(escola);
     this.enemService.getMediaByCodEscola(escola.co_entidade).subscribe((dadosMedias: IMediasEnem) => {
       this.escolaMedias = dadosMedias;
     });
@@ -122,7 +122,8 @@ export class CompareComponent implements OnInit {
   }
 
   onSelectionCidade(value) {
-    this.cidadeAtual = value.source.value;
+    this.mudarCidadeAtual(value.source.value);
+    this.atualizarArrayEscolas(this.cidadeAtual, this.estadoAtual);
     this.formEscolaControl.reset();
   }
 
@@ -180,9 +181,27 @@ export class CompareComponent implements OnInit {
     };
   }
 
+  atualizarArrayEscolas(cidade: string, estado: string) {
+    this.getEscolasPorCidade(cidade, estado);
+  }
+
+  getEscolasPorCidade(cidade: string, estado: string) {
+    this.escolaService.getEscolasWithFilters(cidade, estado).subscribe((dadosEscolas: IResponseEscola) => {
+      this.escolas = dadosEscolas.data;
+    });
+  }
+
+  mudarCidadeAtual(cidade: string) {
+    this.cidadeAtual = cidade;
+  }
+
+  mudarEstadoAtual(estado: string, uf: string) {
+    this.estadoAtual = estado;
+    this.ufAtual = uf;
+  }
+
   selectedStateValue(value) {
-    this.estadoAtual = value.estado;
-    this.ufAtual = value.uf;
+    this.mudarEstadoAtual(value.estado, value.uf);
     this.formCidadeControl.reset();
     this.formEscolaControl.reset();
   }

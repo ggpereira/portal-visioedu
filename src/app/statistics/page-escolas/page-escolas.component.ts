@@ -82,10 +82,25 @@ export class PageEscolasComponent implements OnInit {
   }
 
   onCidadeSelection(value) {
-    console.log(value.source.value);
-    this.cidadeAtual = value.source.value;
+    this.mudarCidade(value.source.value);
     this.formEscolaControl.reset();
-    this.getEscolasPorCidade(this.cidadeAtual, this.estadoAtual);
+    this.atualizarArrayEscolas(this.cidadeAtual, this.estadoAtual);
+  }
+
+  // Atualiza o array de escolas com as escolas da cidade e estado atual
+  atualizarArrayEscolas(cidade: string, estado: string) {
+    this.getEscolasPorCidade(cidade, estado);
+  }
+
+  // Muda o valor da variável cidadeAtual
+  mudarCidade(nome: string) {
+    this.cidadeAtual = nome;
+  }
+
+  // Muda o valor da variável estadoAtual e ufAtual
+  mudarEstado(nome: string, uf: string) {
+    this.estadoAtual = nome;
+    this.ufAtual = uf;
   }
 
   onEscolaSelection(value) {
@@ -189,8 +204,7 @@ export class PageEscolasComponent implements OnInit {
   }
 
   selectedStateValue(value) {
-    this.estadoAtual = value.estado;
-    this.ufAtual = value.uf;
+    this.mudarEstado(value.estado, value.uf);
     this.formCidadeControl.reset();
     this.formEscolaControl.reset();
   }
