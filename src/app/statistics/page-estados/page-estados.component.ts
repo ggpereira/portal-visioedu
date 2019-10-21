@@ -238,9 +238,9 @@ export class PageEstadosComponent implements OnInit {
     });
   }
 
-  selectedStateValue(state) {
-    this.getMediasEstado(state);
-    this.getDadosInfraestruturaEscolas(state);
+  selectedStateValue(value) {
+    this.getMediasEstado(value.estado);
+    this.getDadosInfraestruturaEscolas(value.estado);
   }
 
 }
