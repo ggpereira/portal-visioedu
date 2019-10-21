@@ -77,9 +77,15 @@ export class CompareComponent implements OnInit {
 
   getMediaEscola(escola: IEscola) {
     this.escola = escola;
-    this.enemService.getMediaByCodEscola(escola.co_entidade).subscribe((dadosMedias: IMediasEnem) => {
-      this.escolaMedias = dadosMedias;
-    });
+    this.enemService.getMediaByCodEscola(escola.co_entidade)
+      .subscribe(
+        (dadosMedias: IMediasEnem) => {
+          this.escolaMedias = dadosMedias;
+        },
+        (err) => {
+          this.escolaMedias = undefined;
+        }
+    );
   }
 
   findEscolaEstatisticas(nome: string) {

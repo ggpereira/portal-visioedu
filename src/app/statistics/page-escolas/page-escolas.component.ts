@@ -104,39 +104,42 @@ export class PageEscolasComponent implements OnInit {
   }
 
   onEscolaSelection(value) {
-    console.log(value.source.value);
     this.escolaAtual = this.findEscola(value.source.value);
-    console.log(this.escolaAtual);
     this.fillViewInfoEscolas(this.escolaAtual);
     this.fillViewEstruturaEscolas(this.escolaAtual);
-    this.enemService.getMediaByCodEscola(this.escolaAtual.co_entidade).subscribe((data: IMediasEnem) => {
-      this.mediasEnem = data;
-      this.barChartConf = {
-        title: 'Médias Enem',
-        iconName: 'bar_chart',
-        chartType: 'bar',
-        chartLabels: ['Humanas', 'Naturais', 'Matemática', 'Redação', 'Linguagens', 'Geral'],
-        chartPlugins: [],
-        legend: true,
-        chartData: [{
-          data: [
-            this.mediasEnem.mediaCh,
-            this.mediasEnem.mediaCn,
-            this.mediasEnem.mediaMat,
-            this.mediasEnem.mediaRedacao,
-            this.mediasEnem.mediaLc,
-            this.mediasEnem.mediaGeral
-          ],
-          label: 'Médias',
-        }],
-        chartOptions: {
-          responsive: true
-        },
-        subHeader: this.escolaAtual.no_entidade
-      };
-
-
-    });
+    this.enemService.getMediaByCodEscola(this.escolaAtual.co_entidade)
+      .subscribe(
+        (data: IMediasEnem) => {
+        this.mediasEnem = data;
+        this.barChartConf = {
+          title: 'Médias Enem',
+          iconName: 'bar_chart',
+          chartType: 'bar',
+          chartLabels: ['Humanas', 'Naturais', 'Matemática', 'Redação', 'Linguagens', 'Geral'],
+          chartPlugins: [],
+          legend: true,
+          chartData: [{
+            data: [
+              this.mediasEnem.mediaCh,
+              this.mediasEnem.mediaCn,
+              this.mediasEnem.mediaMat,
+              this.mediasEnem.mediaRedacao,
+              this.mediasEnem.mediaLc,
+              this.mediasEnem.mediaGeral
+            ],
+            label: 'Médias',
+          }],
+          chartOptions: {
+            responsive: true
+          },
+          subHeader: this.escolaAtual.no_entidade
+        };
+      },
+      (err) => {
+        this.mediasEnem = undefined;
+        this.barChartConf = undefined;
+      }
+    );
   }
 
   // Preenche dados exibidos no cards relacionados a estrutura
