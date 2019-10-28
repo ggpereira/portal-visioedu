@@ -144,7 +144,6 @@ export class PageEscolasComponent implements OnInit {
 
   // Preenche dados exibidos no cards relacionados a estrutura
   fillViewEstruturaEscolas(dadosEscola: IEscola) {
-    console.log(dadosEscola);
     // Agua
     this.escolaViewData.Agua.value = dadosEscola.agua;
     // Agua filtrada
@@ -192,11 +191,18 @@ export class PageEscolasComponent implements OnInit {
     this.escolaViewInfo.TipoDeLocalizacao.value = dadosEscola.tp_localizacao;
   }
 
-
   findEscola(nome: string): IEscola {
     return this.escolas.find((escola: IEscola) => {
       return escola.no_entidade === nome;
     });
+  }
+
+  // Divide o vetor de dados relacionados a infraestrutura
+  partitionEscolaViewData(i: number) {
+    const keys = this.objectKeys(this.escolaViewData);
+    const start = (i - 1) * (keys.length / 2);
+    const end =  i * ((keys.length / 2) - 1);
+    return keys.splice(start, end);
   }
 
 
