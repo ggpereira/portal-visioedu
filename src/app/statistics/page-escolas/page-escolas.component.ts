@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { EscolaService } from 'src/app/services/escola.service';
 import { LocationService } from 'src/app/services/location.service';
 import { ILocation } from '../../shared/models/location';
@@ -10,13 +10,14 @@ import { EnemService } from '../../services/enem.service';
 import { IMediasEnem } from 'src/app/shared/models/enem';
 import { ChartConf } from 'src/app/charts/charts.component';
 import { EscolaViewData, EscolaInfoData } from 'src/app/shared/models/escola';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-page-escolas',
   templateUrl: './page-escolas.component.html',
   styleUrls: ['./page-escolas.component.scss']
 })
-export class PageEscolasComponent implements OnInit {
+export class PageEscolasComponent implements OnInit, OnDestroy {
   location: ILocation;
   escolas: Array<IEscola>;
   cidadeAtual: string;
@@ -43,6 +44,15 @@ export class PageEscolasComponent implements OnInit {
     }
   ];
 
+  // subscriptions
+  escolas$: Subscription;
+  location$: Subscription;
+  dadosCidades$: Subscription;
+  dadosEscolas$: Subscription;
+  mediasEnem$: Subscription;
+  formCidadeControl$: Subscription;
+  formEscolaControl$: Subscription;
+
   formCidadeControl: FormControl = new FormControl();
   formEscolaControl: FormControl = new FormControl();
   constructor(
@@ -52,7 +62,7 @@ export class PageEscolasComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.locationService.getLocation().subscribe((locationData: ILocation) => {
+    this.location$ = this.locationService.getLocation().subscribe((locationData: ILocation) => {
       this.location = locationData;
       this.cidadeAtual = this.location.city;
       this.estadoAtual = this.location.region;
@@ -63,22 +73,32 @@ export class PageEscolasComponent implements OnInit {
       this.getEscolasPorCidade(this.location.city, this.location.region);
 
       // Entrada de busca
-      this.formCidadeControl.valueChanges.pipe(distinctUntilChanged(), startWith(''))
+      this.formCidadeControl$ = this.formCidadeControl.valueChanges.pipe(distinctUntilChanged(), startWith(''))
         .subscribe(formValue => {
-          this.locationService.getCidades(formValue, this.ufAtual).subscribe((data: Array<ICidade>) => {
+          this.dadosCidades$ = this.locationService.getCidades(formValue, this.ufAtual).subscribe((data: Array<ICidade>) => {
             this.dadosCidades = data;
           });
         });
       // Entrada de escolas
-      this.formEscolaControl.valueChanges.pipe(distinctUntilChanged(), startWith(''))
+      this.formEscolaControl$ = this.formEscolaControl.valueChanges.pipe(distinctUntilChanged(), startWith(''))
         .subscribe(formValue => {
-          this.escolaService.getEscolasWithFilters(this.cidadeAtual, this.estadoAtual, formValue)
+          this.dadosEscolas$ = this.escolaService.getEscolasWithFilters(this.cidadeAtual, this.estadoAtual, formValue)
             .subscribe((data: IResponseEscola) => {
               // Pega por nome
               this.dadosEscolas = data.data;
             });
         });
     });
+  }
+
+  ngOnDestroy() {
+    this.location$.unsubscribe();
+    this.mediasEnem$.unsubscribe();
+    this.escolas$.unsubscribe();
+    this.formCidadeControl$.unsubscribe();
+    this.formEscolaControl$.unsubscribe();
+    this.dadosCidades$.unsubscribe();
+    this.dadosEscolas$.unsubscribe();
   }
 
   onCidadeSelection(value) {
@@ -107,7 +127,7 @@ export class PageEscolasComponent implements OnInit {
     this.escolaAtual = this.findEscola(value.source.value);
     this.fillViewInfoEscolas(this.escolaAtual);
     this.fillViewEstruturaEscolas(this.escolaAtual);
-    this.enemService.getMediaByCodEscola(this.escolaAtual.co_entidade)
+    this.mediasEnem$ = this.enemService.getMediaByCodEscola(this.escolaAtual.co_entidade)
       .subscribe(
         (data: IMediasEnem) => {
         this.mediasEnem = data;
@@ -207,7 +227,7 @@ export class PageEscolasComponent implements OnInit {
 
 
   getEscolasPorCidade(cidade: string, estado: string) {
-    this.escolaService.getEscolasWithFilters(cidade, estado).subscribe((dadosEscolas: IResponseEscola) => {
+    this.escolas$ = this.escolaService.getEscolasWithFilters(cidade, estado).subscribe((dadosEscolas: IResponseEscola) => {
       this.escolas = dadosEscolas.data;
     });
   }
