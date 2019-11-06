@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { EnemService } from '../services/enem.service';
 import { StatisticsService } from '../services/statistics.service';
 import { ILocation } from '../shared/models/location';
@@ -11,7 +12,7 @@ import { IEstatisticasCidade } from '../shared/models/estatisticas';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   chartType: string;
   titulo: string;
 
@@ -28,6 +29,10 @@ export class HomeComponent implements OnInit {
 
   pieChartConf: Array<ChartConf>;
 
+  // subscriptions
+  statsCidade$: Subscription;
+  location$: Subscription;
+  dataMediasCidade$: Subscription;
 
   public colors = [
     {
@@ -47,16 +52,22 @@ export class HomeComponent implements OnInit {
     private locationService: LocationService) { }
 
   ngOnInit() {
-    this.locationService.getLocation().subscribe((locationData: ILocation) => {
+    this.location$ = this.locationService.getLocation().subscribe((locationData: ILocation) => {
       this.location = locationData;
       this.getMediaCidade(this.location.city, this.location.region);
       this.getEstatisticasCidade(this.location.city, this.location.region);
     });
   }
 
+  ngOnDestroy() {
+    this.location$.unsubscribe();
+    this.dataMediasCidade$.unsubscribe();
+    this.statsCidade$.unsubscribe();
+  }
+
 
   getMediaCidade(cidade: string, estado: string) {
-    this.enemService.getMediasCidades(cidade, estado).subscribe((dataMedias: Array<IMediasEnem>) => {
+    this.dataMediasCidade$ = this.enemService.getMediasCidades(cidade, estado).subscribe((dataMedias: Array<IMediasEnem>) => {
       this.dataMediasCidade = dataMedias[0];
       this.chartType = 'bar';
       this.chartValues = [];
@@ -89,7 +100,8 @@ export class HomeComponent implements OnInit {
   }
 
   getEstatisticasCidade(cidade: string, estado: string) {
-    this.statisticsService.getEstatisticasCidade(cidade, estado).subscribe((estatisticasCidade: Array<IEstatisticasCidade>) => {
+    // tslint:disable-next-line: max-line-length
+    this.statsCidade$ = this.statisticsService.getEstatisticasCidade(cidade, estado).subscribe((estatisticasCidade: Array<IEstatisticasCidade>) => {
       this.statsCidade = estatisticasCidade[0];
       this.pieChartConf = [
         {
