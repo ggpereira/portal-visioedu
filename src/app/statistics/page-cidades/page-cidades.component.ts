@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
 import { IEstatisticasCidade } from '../../shared/models/estatisticas';
@@ -9,13 +9,14 @@ import { ILocation } from 'src/app/shared/models/location';
 import { EnemService } from 'src/app/services/enem.service';
 import { IMediasEnem } from 'src/app/shared/models/enem';
 import { ChartConf } from 'src/app/charts/charts.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-page-cidades',
   templateUrl: './page-cidades.component.html',
   styleUrls: ['./page-cidades.component.scss']
 })
-export class PageCidadesComponent implements OnInit {
+export class PageCidadesComponent implements OnInit, OnDestroy {
   data: IEstatisticasCidade[] = [];
   myControl: FormControl = new FormControl();
   currentStateName: string;
@@ -23,6 +24,13 @@ export class PageCidadesComponent implements OnInit {
   barChartConf: ChartConf;
   pieChartsConf: Array<ChartConf>;
   estatisticas: IEstatisticasCidade;
+
+  // subscriptions
+  estatisticas$: Subscription;
+  mediasEnem$: Subscription;
+  data$: Subscription;
+  location$: Subscription;
+  formControl$: Subscription;
 
   public colors = [
     {
@@ -45,7 +53,7 @@ export class PageCidadesComponent implements OnInit {
 
   ngOnInit() {
 
-    this.locationService.getLocation().subscribe((data: ILocation) => {
+    this.location$ = this.locationService.getLocation().subscribe((data: ILocation) => {
       this.location = data;
 
       this.currentStateName = this.location.region;
@@ -53,7 +61,7 @@ export class PageCidadesComponent implements OnInit {
       this.getMediasCidade(this.location.city, this.location.region);
       this.getEstatisticasCidade(this.location.city);
 
-      this.myControl.valueChanges.pipe(distinctUntilChanged(), startWith(''))
+      this.formControl$ = this.myControl.valueChanges.pipe(distinctUntilChanged(), startWith(''))
         .subscribe(myControl => {
           // tslint:disable-next-line: max-line-length
           this.estatisticasService.getEstatisticasCidade(myControl, this.currentStateName).subscribe((response: Array<IEstatisticasCidade>) => {
@@ -64,8 +72,16 @@ export class PageCidadesComponent implements OnInit {
 
   }
 
+  ngOnDestroy() {
+    this.location$.unsubscribe();
+    this.estatisticas$.unsubscribe();
+    this.mediasEnem$.unsubscribe();
+    this.formControl$.unsubscribe();
+  }
+
   getEstatisticasCidade(municipio: string) {
-    this.estatisticasService.getEstatisticasCidade(municipio, this.currentStateName).subscribe((response: Array<IEstatisticasCidade>) => {
+    // tslint:disable-next-line: max-line-length
+    this.estatisticas$ = this.estatisticasService.getEstatisticasCidade(municipio, this.currentStateName).subscribe((response: Array<IEstatisticasCidade>) => {
       this.estatisticas = response[0];
       this.pieChartsConf = [
         {
@@ -224,7 +240,7 @@ export class PageCidadesComponent implements OnInit {
 
   getMediasCidade(municipio: string, estado: string) {
 
-    this.enemService.getMediasCidades(municipio, estado).subscribe((dadosMedias: Array<IMediasEnem>) => {
+    this.mediasEnem$ = this.enemService.getMediasCidades(municipio, estado).subscribe((dadosMedias: Array<IMediasEnem>) => {
       this.mediasEnem = dadosMedias[0];
       this.barChartConf = {
         title: 'Médias Enem',
