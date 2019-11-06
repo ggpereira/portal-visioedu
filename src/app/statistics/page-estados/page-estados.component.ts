@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { ILocation } from 'src/app/shared/models/location';
 import { ChartsComponent, ChartConf } from 'src/app/charts/charts.component';
 import { LocationService } from 'src/app/services/location.service';
@@ -13,7 +13,7 @@ import { IEstatisticasEstado } from 'src/app/shared/models/estatisticas';
   templateUrl: './page-estados.component.html',
   styleUrls: ['./page-estados.component.scss']
 })
-export class PageEstadosComponent implements OnInit {
+export class PageEstadosComponent implements OnInit, OnDestroy {
   chartType: string;
   titulo: string;
   location: ILocation;
@@ -22,6 +22,11 @@ export class PageEstadosComponent implements OnInit {
   mediasEnemData: IMediasEnem;
   estatisticas: IEstatisticasEstado;
   currentStateName: string;
+
+  // subscriptions
+  location$: Subscription;
+  mediasEnemData$: Subscription;
+  estatisticas$: Subscription;
 
   public colors = [
     {
@@ -42,7 +47,7 @@ export class PageEstadosComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.locationService.getLocation().subscribe((locationData: ILocation) => {
+    this.location$ = this.locationService.getLocation().subscribe((locationData: ILocation) => {
       this.location = locationData;
       this.currentStateName = this.location.region;
       this.getMediasEstado(this.location.region);
@@ -50,8 +55,14 @@ export class PageEstadosComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.location$.unsubscribe();
+    this.estatisticas$.unsubscribe();
+    this.mediasEnemData$.unsubscribe();
+  }
+
   getDadosInfraestruturaEscolas(nomeEstado: string) {
-    this.estatisticasService.getEstatisticasEstado(nomeEstado).subscribe((data: Array<IEstatisticasEstado>) => {
+    this.estatisticas$ = this.estatisticasService.getEstatisticasEstado(nomeEstado).subscribe((data: Array<IEstatisticasEstado>) => {
       this.estatisticas = data[0];
       this.pieChartsConf = [
         {
@@ -209,7 +220,7 @@ export class PageEstadosComponent implements OnInit {
   }
 
   getMediasEstado(nomeEstado: string) {
-    this.enemService.getMediasEstados(nomeEstado).subscribe((mediasData: Array<IMediasEnem>) => {
+    this.mediasEnemData$ = this.enemService.getMediasEstados(nomeEstado).subscribe((mediasData: Array<IMediasEnem>) => {
       this.mediasEnemData = mediasData[0];
 
       this.barChartConf = {
