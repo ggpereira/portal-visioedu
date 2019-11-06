@@ -18,7 +18,7 @@ export class SearchComponent implements OnInit {
   queryField: FormControl = new FormControl();
   estados: Estado[];
 
-  constructor(private searchService: EscolaService) { }
+  constructor() { }
 
   ngOnInit() {
     this.estados = DADOS_ESTADOS;
