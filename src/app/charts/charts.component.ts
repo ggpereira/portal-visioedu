@@ -34,7 +34,4 @@ export class ChartsComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSelect(event) {
-    console.log('click');
-  }
 }
