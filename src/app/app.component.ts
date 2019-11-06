@@ -8,13 +8,13 @@ import { ILocation } from './shared/models/location';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'visioEdu-Portal';
 
   isMenuOpen = true;
   contentMargin = 240;
 
-  constructor(private locationService: LocationService) { }
+  constructor() { }
 
   ngOnInit() {}
 
