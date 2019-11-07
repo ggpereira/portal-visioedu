@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { EscolaService } from 'src/app/services/escola.service';
 import { LocationService } from 'src/app/services/location.service';
 import { ILocation } from '../shared/models/location';
@@ -10,13 +10,14 @@ import { ICidade } from '../shared/models/cidade';
 import { EnemService } from '../services/enem.service';
 import { IEstatisticas, IEstatisticasEstado, IEstatisticasCidade } from '../shared/models/estatisticas';
 import { StatisticsService } from '../services/statistics.service';
+import { Subscription, ReplaySubject } from 'rxjs';
 
 @Component({
   selector: 'app-compare',
   templateUrl: './compare.component.html',
   styleUrls: ['./compare.component.scss']
 })
-export class CompareComponent implements OnInit {
+export class CompareComponent implements OnInit, OnDestroy {
   escola: IEscola;
   escolaMedias: IMediasEnem;
 
@@ -40,12 +41,25 @@ export class CompareComponent implements OnInit {
   formCidadeControl: FormControl = new FormControl();
   formEscolaControl: FormControl = new FormControl();
 
+  // subscriptions
+  escolas$: Subscription;
+  location$: Subscription;
+  formCidade$: Subscription;
+  formEscola$: Subscription;
+  dadosCidades$: Subscription;
+  dadosEscolas$: Subscription;
+  estado$: Subscription;
+  estadoMedias$: Subscription;
+  cidade$: Subscription;
+  cidadeMedias$: Subscription;
+  escolaMedias$: Subscription;
+
   // tslint:disable-next-line: max-line-length
   constructor(private escolaService: EscolaService, private statisticsService: StatisticsService, private locationService: LocationService, private enemService: EnemService) {
   }
 
   ngOnInit() {
-    this.locationService.getLocation().subscribe((locationData: ILocation) => {
+    this.location$ = this.locationService.getLocation().subscribe((locationData: ILocation) => {
       this.location = locationData;
       this.cidadeAtual = this.location.city;
       this.estadoAtual = this.location.region;
@@ -53,21 +67,22 @@ export class CompareComponent implements OnInit {
       this.formCidadeControl.setValue(this.location.city);
 
       // Dados de escolas
-      this.escolaService.getEscolasWithFilters(this.location.city, this.location.region).subscribe((dadosEscolas: IResponseEscola) => {
+      // tslint:disable-next-line: max-line-length
+      this.escolas$ = this.escolaService.getEscolasWithFilters(this.location.city, this.location.region).subscribe((dadosEscolas: IResponseEscola) => {
         this.escolas = dadosEscolas.data;
       });
 
       // Entrada de busca
-      this.formCidadeControl.valueChanges.pipe(distinctUntilChanged(), startWith(''))
+      this.formCidade$ = this.formCidadeControl.valueChanges.pipe(distinctUntilChanged(), startWith(''))
         .subscribe(formValue => {
           this.locationService.getCidades(formValue, this.ufAtual).subscribe((data: Array<ICidade>) => {
             this.dadosCidades = data;
           });
         });
       // Entrada de escolas
-      this.formEscolaControl.valueChanges.pipe(distinctUntilChanged(), startWith(''))
+      this.formEscola$ = this.formEscolaControl.valueChanges.pipe(distinctUntilChanged(), startWith(''))
         .subscribe(formValue => {
-          this.escolaService.getEscolasWithFilters(this.cidadeAtual, this.estadoAtual, formValue)
+          this.escolas$ = this.escolaService.getEscolasWithFilters(this.cidadeAtual, this.estadoAtual, formValue)
             .subscribe((data: IResponseEscola) => {
               this.dadosEscolas = data.data;
             });
@@ -75,9 +90,21 @@ export class CompareComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.location$.unsubscribe();
+    this.escolas$.unsubscribe();
+    this.formCidade$.unsubscribe();
+    this.formEscola$.unsubscribe();
+    this.escolaMedias$.unsubscribe();
+    this.cidadeMedias$.unsubscribe();
+    this.estadoMedias$.unsubscribe();
+    this.cidade$.unsubscribe();
+    this.estado$.unsubscribe();
+  }
+
   getMediaEscola(escola: IEscola) {
     this.escola = escola;
-    this.enemService.getMediaByCodEscola(escola.co_entidade)
+    this.escolaMedias$ = this.enemService.getMediaByCodEscola(escola.co_entidade)
       .subscribe(
         (dadosMedias: IMediasEnem) => {
           this.escolaMedias = dadosMedias;
@@ -95,27 +122,29 @@ export class CompareComponent implements OnInit {
   }
 
   getMediaCidade(cidade: IEstatisticasCidade) {
-    this.enemService.getMediasCidades(cidade.municipio, this.estadoAtual).subscribe((dadosMedias: Array<IMediasEnem>) => {
+    // tslint:disable-next-line: max-line-length
+    this.cidadeMedias$ = this.enemService.getMediasCidades(cidade.municipio, this.estadoAtual).subscribe((dadosMedias: Array<IMediasEnem>) => {
       this.cidadeMedias = dadosMedias[0];
       this.mudarDadosCidade(this.cidadeMedias, this.cidade);
     });
   }
 
   getMediaEstado(estado: IEstatisticasEstado) {
-    this.enemService.getMediasEstados(estado.estado).subscribe((dadosMedias: Array<IMediasEnem>) => {
+     this.estadoMedias$ =  this.enemService.getMediasEstados(estado.estado).subscribe((dadosMedias: Array<IMediasEnem>) => {
       this.estadoMedias = dadosMedias[0];
     });
   }
 
   findCidadeEstatisticas(nomeCidade: string, nomeEstado: string) {
-    this.statisticsService.getEstatisticasCidade(nomeCidade, nomeEstado).subscribe((response: Array<IEstatisticasCidade>) => {
+   // tslint:disable-next-line: max-line-length
+   this.cidade$ =  this.statisticsService.getEstatisticasCidade(nomeCidade, nomeEstado).subscribe((response: Array<IEstatisticasCidade>) => {
       this.cidade = response[0];
       this.getMediaCidade(this.cidade);
     });
   }
 
   findEstadoEstatisticas(nomeEstado: string) {
-    this.statisticsService.getEstatisticasEstado(nomeEstado).subscribe((response: Array<IEstatisticasEstado>) => {
+    this.estado$ = this.statisticsService.getEstatisticasEstado(nomeEstado).subscribe((response: Array<IEstatisticasEstado>) => {
       this.estado = response[0];
       this.getMediaEstado(this.estado);
     });
@@ -192,7 +221,7 @@ export class CompareComponent implements OnInit {
   }
 
   getEscolasPorCidade(cidade: string, estado: string) {
-    this.escolaService.getEscolasWithFilters(cidade, estado).subscribe((dadosEscolas: IResponseEscola) => {
+    this.escolas$ = this.escolaService.getEscolasWithFilters(cidade, estado).subscribe((dadosEscolas: IResponseEscola) => {
       this.escolas = dadosEscolas.data;
     });
   }
