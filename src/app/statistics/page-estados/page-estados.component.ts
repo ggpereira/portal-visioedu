@@ -56,9 +56,9 @@ export class PageEstadosComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.location$.unsubscribe();
-    this.estatisticas$.unsubscribe();
-    this.mediasEnemData$.unsubscribe();
+    this.destroySubscription(this.location$);
+    this.destroySubscription(this.estatisticas$);
+    this.destroySubscription(this.mediasEnemData$);
   }
 
   getDadosInfraestruturaEscolas(nomeEstado: string) {
@@ -252,6 +252,12 @@ export class PageEstadosComponent implements OnInit, OnDestroy {
   selectedStateValue(value) {
     this.getMediasEstado(value.estado);
     this.getDadosInfraestruturaEscolas(value.estado);
+  }
+
+  destroySubscription(s: Subscription) {
+    if (s !== undefined) {
+      s.unsubscribe();
+    }
   }
 
 }
