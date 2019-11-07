@@ -92,13 +92,19 @@ export class PageEscolasComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.location$.unsubscribe();
-    this.mediasEnem$.unsubscribe();
-    this.escolas$.unsubscribe();
-    this.formCidadeControl$.unsubscribe();
-    this.formEscolaControl$.unsubscribe();
-    this.dadosCidades$.unsubscribe();
-    this.dadosEscolas$.unsubscribe();
+    this.destroySubscription(this.location$);
+    this.destroySubscription(this.mediasEnem$);
+    this.destroySubscription(this.escolas$);
+    this.destroySubscription(this.formCidadeControl$);
+    this.destroySubscription(this.formEscolaControl$);
+    this.destroySubscription(this.dadosCidades$);
+    this.destroySubscription(this.dadosEscolas$);
+  }
+
+  destroySubscription(s: Subscription) {
+    if (s !== undefined) {
+      s.unsubscribe();
+    }
   }
 
   onCidadeSelection(value) {

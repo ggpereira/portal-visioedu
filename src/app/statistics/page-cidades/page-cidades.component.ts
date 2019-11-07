@@ -73,10 +73,10 @@ export class PageCidadesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.location$.unsubscribe();
-    this.estatisticas$.unsubscribe();
-    this.mediasEnem$.unsubscribe();
-    this.formControl$.unsubscribe();
+    this.destroySubscription(this.location$);
+    this.destroySubscription(this.estatisticas$);
+    this.destroySubscription(this.mediasEnem$);
+    this.destroySubscription(this.formControl$);
   }
 
   getEstatisticasCidade(municipio: string) {
@@ -276,6 +276,12 @@ export class PageCidadesComponent implements OnInit, OnDestroy {
   setCurrentStateValue(value) {
     this.currentStateName = value.estado;
     this.myControl.reset();
+  }
+
+  destroySubscription(s: Subscription) {
+    if (s !== undefined) {
+      s.unsubscribe();
+    }
   }
 
 }

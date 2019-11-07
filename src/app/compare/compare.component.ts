@@ -91,15 +91,15 @@ export class CompareComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.location$.unsubscribe();
-    this.escolas$.unsubscribe();
-    this.formCidade$.unsubscribe();
-    this.formEscola$.unsubscribe();
-    this.escolaMedias$.unsubscribe();
-    this.cidadeMedias$.unsubscribe();
-    this.estadoMedias$.unsubscribe();
-    this.cidade$.unsubscribe();
-    this.estado$.unsubscribe();
+    this.destroySubscription(this.location$);
+    this.destroySubscription(this.escolas$);
+    this.destroySubscription(this.formCidade$);
+    this.destroySubscription(this.formEscola$);
+    this.destroySubscription(this.escolaMedias$);
+    this.destroySubscription(this.cidadeMedias$);
+    this.destroySubscription(this.estadoMedias$);
+    this.destroySubscription(this.cidade$);
+    this.destroySubscription(this.estado$);
   }
 
   getMediaEscola(escola: IEscola) {
@@ -241,4 +241,9 @@ export class CompareComponent implements OnInit, OnDestroy {
     this.formEscolaControl.reset();
   }
 
+  destroySubscription(s: Subscription) {
+    if (s !== undefined) {
+      s.unsubscribe();
+    }
+  }
 }

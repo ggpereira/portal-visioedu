@@ -60,9 +60,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.location$.unsubscribe();
-    this.dataMediasCidade$.unsubscribe();
-    this.statsCidade$.unsubscribe();
+    this.destroySubscription(this.location$);
+    this.destroySubscription(this.dataMediasCidade$);
+    this.destroySubscription(this.statsCidade$);
   }
 
 
@@ -164,5 +164,11 @@ export class HomeComponent implements OnInit, OnDestroy {
           iconName: 'pie_chart'
       }];
     });
+  }
+
+  destroySubscription(s: Subscription) {
+    if (s !== undefined) {
+      s.unsubscribe();
+    }
   }
 }
