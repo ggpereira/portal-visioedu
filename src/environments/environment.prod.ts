@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
   mocking: false,
-  host: 'http://localhost:3000/',
+  host: 'http://visioedu.inf.ufsm.br/',
   apiLocation: 'https://api.ip.sb/geoip'
 };
