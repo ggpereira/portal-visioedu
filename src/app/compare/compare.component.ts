@@ -12,6 +12,31 @@ import { IEstatisticas, IEstatisticasEstado, IEstatisticasCidade } from '../shar
 import { StatisticsService } from '../services/statistics.service';
 import { Subscription, ReplaySubject } from 'rxjs';
 
+interface IViewDataLocal {
+  icon: string;
+  lugar: string;
+  aguaFiltrada: number;
+  aguaInexistente: number;
+  bandaLarga: number;
+  biblioteca: number;
+  energiaInexistente: number;
+  esgotoInexistente: number;
+  internet: number;
+  laboratorioCiencias: number;
+  laboratorioInformatica: number;
+  coletaPeriodica: number;
+  lixoRecicla: number;
+  atendimentoEspecial: number;
+  salaLeitura: number;
+  qtdEscolas: number;
+  mediaCh: number;
+  mediaCn: number;
+  mediaLc: number;
+  mediaRedacao: number;
+  mediaMat: number;
+  mediaGeral: number;
+}
+
 @Component({
   selector: 'app-compare',
   templateUrl: './compare.component.html',
@@ -32,7 +57,7 @@ export class CompareComponent implements OnInit, OnDestroy {
   estadoAtual: string;
   ufAtual: string;
 
-  data: {};
+  data: IViewDataLocal;
 
   escolas: Array<IEscola>;
   dadosCidades: Array<ICidade>;
@@ -162,7 +187,7 @@ export class CompareComponent implements OnInit, OnDestroy {
     this.formEscolaControl.reset();
   }
 
-  mudarDadosCidade(cidade: any, cidadeMedia: any) {
+  mudarDadosCidade(cidade?: any, cidadeMedia?: any) {
     this.data = {
       icon: 'location_city',
       lugar: this.cidade.municipio,
