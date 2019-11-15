@@ -44,6 +44,7 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
+    "ng2-charts": "^2.3.0",
     "path": "^0.12.7",
     "protractor": "~5.4.0",
     "rxjs": "~6.4.0",
