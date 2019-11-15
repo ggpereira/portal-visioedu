@@ -2,7 +2,8 @@
   "name": "visio-edu-portal",
   "version": "0.0.0",
   "engines": {
-    "node": "10.16.1"
+    "node": "10.16.1", 
+    "npm": "6.12.1"
   },
   "scripts": {
     "ng": "ng",
