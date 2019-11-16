@@ -1,4 +1,4 @@
-<div *ngIf="barChartConf && pieChartsConf && estatisticas; else loading">
+<ng-container *ngIf="barChartConf && pieChartsConf && estatisticas">
   <div fxLayout="row">
     <div style="width: 40%">
       <app-search [defaultStateName]="currentStateName" (valueChange)='setCurrentStateValue($event)'></app-search>
@@ -37,10 +37,16 @@
   
   <app-charts *ngIf="barChartConf" [chartConfig]="barChartConf" [colors]="colors"></app-charts>
   <app-charts *ngFor="let conf of pieChartsConf" [chartConfig]="conf" [colors]="colors"></app-charts>
-</div>
+</ng-container>
 
-<ng-template #loading>
+<ng-container *ngIf="isLoadingCidade && isLoadingMedias">
   <div fxLayout="row" fxLayoutAlign="center center" style="width: 100%; height: 100%">
     <mat-spinner [diameter]="'350'"></mat-spinner>
   </div>
-</ng-template>
+</ng-container>
+
+<ng-container *ngIf="!isLoadingCidade && !isLoadingMedias && !mediasEnem && !estatisticas">
+    <div fxLayout="row" fxLayoutAlign="center center" style="width: 100%; height: 100%">
+      <p class="isEmpty-info">Não há informações para exibir</p>
+    </div>
+</ng-container>

@@ -32,6 +32,9 @@ export class PageCidadesComponent implements OnInit, OnDestroy {
   location$: Subscription;
   formControl$: Subscription;
 
+  isLoadingCidade = true;
+  isLoadingMedias = true;
+
   public colors = [
     {
       backgroundColor: [
@@ -82,6 +85,11 @@ export class PageCidadesComponent implements OnInit, OnDestroy {
   getEstatisticasCidade(municipio: string) {
     // tslint:disable-next-line: max-line-length
     this.estatisticas$ = this.estatisticasService.getEstatisticasCidade(municipio, this.currentStateName).subscribe((response: Array<IEstatisticasCidade>) => {
+      this.isLoadingCidade = false;
+      if (response.length <= 0) {
+        return;
+      }
+
       this.estatisticas = response[0];
       this.pieChartsConf = [
         {
@@ -241,6 +249,10 @@ export class PageCidadesComponent implements OnInit, OnDestroy {
   getMediasCidade(municipio: string, estado: string) {
 
     this.mediasEnem$ = this.enemService.getMediasCidades(municipio, estado).subscribe((dadosMedias: Array<IMediasEnem>) => {
+      this.isLoadingMedias = false;
+      if (dadosMedias.length <= 0) {
+        return;
+      }
       this.mediasEnem = dadosMedias[0];
       this.barChartConf = {
         title: 'Médias Enem',
