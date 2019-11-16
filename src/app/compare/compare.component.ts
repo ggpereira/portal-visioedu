@@ -79,6 +79,8 @@ export class CompareComponent implements OnInit, OnDestroy {
   cidadeMedias$: Subscription;
   escolaMedias$: Subscription;
 
+  isEmptyEscola = true;
+
   // tslint:disable-next-line: max-line-length
   constructor(private escolaService: EscolaService, private statisticsService: StatisticsService, private locationService: LocationService, private enemService: EnemService) {
   }
@@ -132,6 +134,7 @@ export class CompareComponent implements OnInit, OnDestroy {
     this.escolaMedias$ = this.enemService.getMediaByCodEscola(escola.co_entidade)
       .subscribe(
         (dadosMedias: IMediasEnem) => {
+          this.isEmptyEscola = false;
           this.escolaMedias = dadosMedias;
         },
         (err) => {

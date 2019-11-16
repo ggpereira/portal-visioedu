@@ -175,5 +175,15 @@
                 </mat-card-actions>
             </mat-card-footer>
         </mat-card>
+        <ng-container *ngIf="isEmptyEscola">
+            <div fxLayout="row" fxLayoutAlign="center center" style="width: 100%; height: 100%">
+                <p class="isEmpty-info">Selecione uma escola para realizar a comparação</p>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!isEmptyEscola && !escola && !escolaMedias">
+            <div fxLayout="row" fxLayoutAlign="center center" style="width: 100%; height: 100%">
+                <p class="isEmpty-info">Não há informações para exibir</p>
+            </div>
+        </ng-container>
     </div>
 </div>
