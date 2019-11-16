@@ -28,8 +28,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   pieChartConfEnergia: ChartConf;
 
   pieChartConf: Array<ChartConf>;
-  isLoading = true;
-
+  isLoadingMedias = true;
+  isLoadingCidade = true;
   // subscriptions
   statsCidade$: Subscription;
   location$: Subscription;
@@ -69,7 +69,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   getMediaCidade(cidade: string, estado: string) {
     this.dataMediasCidade$ = this.enemService.getMediasCidades(cidade, estado).subscribe((dataMedias: Array<IMediasEnem>) => {
-      this.isLoading = false;
+      this.isLoadingMedias = false;
       if (dataMedias.length <= 0) {
         return;
       }
@@ -108,6 +108,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   getEstatisticasCidade(cidade: string, estado: string) {
     // tslint:disable-next-line: max-line-length
     this.statsCidade$ = this.statisticsService.getEstatisticasCidade(cidade, estado).subscribe((estatisticasCidade: Array<IEstatisticasCidade>) => {
+      this.isLoadingCidade = false;
       if (estatisticasCidade.length <= 0) {
         return;
       }
