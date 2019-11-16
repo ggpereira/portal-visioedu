@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   pieChartConfEnergia: ChartConf;
 
   pieChartConf: Array<ChartConf>;
+  isLoading = true;
 
   // subscriptions
   statsCidade$: Subscription;
@@ -68,6 +69,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   getMediaCidade(cidade: string, estado: string) {
     this.dataMediasCidade$ = this.enemService.getMediasCidades(cidade, estado).subscribe((dataMedias: Array<IMediasEnem>) => {
+      this.isLoading = false;
+      if (dataMedias.length <= 0) {
+        return;
+      }
+
       this.dataMediasCidade = dataMedias[0];
       this.chartType = 'bar';
       this.chartValues = [];
@@ -102,6 +108,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   getEstatisticasCidade(cidade: string, estado: string) {
     // tslint:disable-next-line: max-line-length
     this.statsCidade$ = this.statisticsService.getEstatisticasCidade(cidade, estado).subscribe((estatisticasCidade: Array<IEstatisticasCidade>) => {
+      if (estatisticasCidade.length <= 0) {
+        return;
+      }
       this.statsCidade = estatisticasCidade[0];
       this.pieChartConf = [
         {

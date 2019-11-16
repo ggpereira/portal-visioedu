@@ -1,15 +1,18 @@
-
-<div *ngIf="chartConf && pieChartConf; else loading">
+<ng-container *ngIf="chartConf && pieChartConf">
     <app-charts [chartConfig]="chartConf" [colors]="colors"></app-charts>
-    <app-charts *ngFor="let conf of pieChartConf" 
-        [chartConfig]="conf"
-        [colors]="colors"
-    >
+    <app-charts *ngFor="let conf of pieChartConf" [chartConfig]="conf" [colors]="colors">
     </app-charts>
-</div>
+</ng-container>
 
-<ng-template #loading >
+<ng-container *ngIf="!isLoading && !dataMediasCidade">
+    <div fxLayout="row" fxLayoutAlign="center center" style="width: 100%; height: 100%">
+        <p class="isEmpty-info">Não há informações para exibir</p>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="isLoading">
     <div fxLayout="row" fxLayoutAlign="center center" style="width: 100%; height: 100%">
         <mat-spinner [diameter]="'350'"></mat-spinner>
     </div>
-</ng-template>
+</ng-container>
+
