@@ -1,4 +1,4 @@
-<div *ngIf="barChartConf && pieChartsConf; else loading">
+<div *ngIf="barChartConf && pieChartsConf && estatisticas">
     <app-search [defaultStateName]="currentStateName" (valueChange)='selectedStateValue($event)'></app-search>
 
     <div>
@@ -7,8 +7,14 @@
     </div>
 </div>
 
-<ng-template #loading>
+<ng-container *ngIf="isLoadingEstado && isLoadingMedias">
     <div fxLayout="row" fxLayoutAlign="center center" style="width: 100%; height: 100%">
-        <mat-spinner [diameter]="'350'"></mat-spinner>
+      <mat-spinner [diameter]="'350'"></mat-spinner>
     </div>
-</ng-template>
+  </ng-container>
+  
+  <ng-container *ngIf="!isLoadingEstado && !isLoadingMedias && !mediasEnemData && !estatisticas">
+      <div fxLayout="row" fxLayoutAlign="center center" style="width: 100%; height: 100%">
+        <p class="isEmpty-info">Não há informações para exibir</p>
+      </div>
+  </ng-container>

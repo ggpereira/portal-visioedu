@@ -28,6 +28,9 @@ export class PageEstadosComponent implements OnInit, OnDestroy {
   mediasEnemData$: Subscription;
   estatisticas$: Subscription;
 
+  isLoadingEstado = true;
+  isLoadingMedias = true;
+
   public colors = [
     {
       backgroundColor: [
@@ -63,6 +66,11 @@ export class PageEstadosComponent implements OnInit, OnDestroy {
 
   getDadosInfraestruturaEscolas(nomeEstado: string) {
     this.estatisticas$ = this.estatisticasService.getEstatisticasEstado(nomeEstado).subscribe((data: Array<IEstatisticasEstado>) => {
+      this.isLoadingEstado = false;
+      if (data.length <= 0) {
+        return;
+      }
+      
       this.estatisticas = data[0];
       this.pieChartsConf = [
         {
@@ -221,6 +229,10 @@ export class PageEstadosComponent implements OnInit, OnDestroy {
 
   getMediasEstado(nomeEstado: string) {
     this.mediasEnemData$ = this.enemService.getMediasEstados(nomeEstado).subscribe((mediasData: Array<IMediasEnem>) => {
+      this.isLoadingMedias = false;
+      if (mediasData.length <= 0) {
+        return;
+      }
       this.mediasEnemData = mediasData[0];
 
       this.barChartConf = {
