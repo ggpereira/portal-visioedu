@@ -134,7 +134,6 @@ export class CompareComponent implements OnInit, OnDestroy {
     this.escolaMedias$ = this.enemService.getMediaByCodEscola(escola.co_entidade)
       .subscribe(
         (dadosMedias: IMediasEnem) => {
-          this.isEmptyEscola = false;
           this.escolaMedias = dadosMedias;
         },
         (err) => {
@@ -179,6 +178,7 @@ export class CompareComponent implements OnInit, OnDestroy {
   }
 
   onSelectionEscola(value) {
+    this.isEmptyEscola = false;
     this.getMediaEscola(this.findEscolaEstatisticas(value.source.value));
     this.findCidadeEstatisticas(this.cidadeAtual, this.estadoAtual);
     this.findEstadoEstatisticas(this.estadoAtual);
