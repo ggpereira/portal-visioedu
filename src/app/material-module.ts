@@ -14,6 +14,7 @@ import {
     MatPaginatorModule,
     MatAutocompleteModule,
     MatSelectModule,
+    MatSnackBarModule
 } from '@angular/material';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -34,7 +35,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         MatAutocompleteModule,
         MatFormFieldModule,
         MatSelectModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        MatSnackBarModule
     ],
     exports: [
         MatToolbarModule,
@@ -51,7 +53,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         MatPaginatorModule,
         MatAutocompleteModule,
         MatSelectModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        MatSnackBarModule
     ],
     providers: [],
 })
