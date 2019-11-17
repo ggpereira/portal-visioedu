@@ -240,9 +240,14 @@ export class PageEscolasComponent implements OnInit, OnDestroy {
 
 
   getEscolasPorCidade(cidade: string, estado: string) {
-    this.escolas$ = this.escolaService.getEscolasWithFilters(cidade, estado).subscribe((dadosEscolas: IResponseEscola) => {
-      this.escolas = dadosEscolas.data;
-    });
+    this.escolas$ = this.escolaService.getEscolasWithFilters(cidade, estado).subscribe(
+      (dadosEscolas: IResponseEscola) => {
+        this.escolas = dadosEscolas.data;
+    },
+    (err) => {
+      this.openSnackBar('Não será possível fazer buscas. Tente novamente mais tarde.', 'Ok');
+    }
+    );
   }
 
   openSnackBar(message: string, action: string) {

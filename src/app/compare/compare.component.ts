@@ -98,7 +98,11 @@ export class CompareComponent implements OnInit, OnDestroy {
       // tslint:disable-next-line: max-line-length
       this.escolas$ = this.escolaService.getEscolasWithFilters(this.location.city, this.location.region).subscribe((dadosEscolas: IResponseEscola) => {
         this.escolas = dadosEscolas.data;
-      });
+      },
+      (error) => {
+        this.openSnackBar('Não será possível fazer buscas. Tente novamente mais tarde.', 'Ok');
+      }
+      );
 
       // Entrada de busca
       this.formCidade$ = this.formCidadeControl.valueChanges.pipe(distinctUntilChanged(), startWith(''))
