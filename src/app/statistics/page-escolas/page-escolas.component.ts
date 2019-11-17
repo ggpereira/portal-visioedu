@@ -135,10 +135,10 @@ export class PageEscolasComponent implements OnInit, OnDestroy {
     this.escolaAtual = this.findEscola(value.source.value);
     this.fillViewInfoEscolas(this.escolaAtual);
     this.fillViewEstruturaEscolas(this.escolaAtual);
+    this.isEmptyEscola = false;
     this.mediasEnem$ = this.enemService.getMediaByCodEscola(this.escolaAtual.co_entidade)
       .subscribe(
         (data: IMediasEnem) => {
-        this.isEmptyEscola = false;
         this.mediasEnem = data;
         this.barChartConf = {
           title: 'Médias Enem',
