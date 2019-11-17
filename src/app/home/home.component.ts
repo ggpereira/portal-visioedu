@@ -186,6 +186,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       },
       (error) => {
         this.isLoadingCidade = false;
+        this.openSnackBar('Não foi possível carregar as informações. Tente novamente mais tarde.', 'Ok');
       }
     );
   }

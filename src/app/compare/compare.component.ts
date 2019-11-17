@@ -11,6 +11,7 @@ import { EnemService } from '../services/enem.service';
 import { IEstatisticas, IEstatisticasEstado, IEstatisticasCidade } from '../shared/models/estatisticas';
 import { StatisticsService } from '../services/statistics.service';
 import { Subscription, ReplaySubject } from 'rxjs';
+import { MatSnackBar } from '@angular/material';
 
 interface IViewDataLocal {
   icon: string;
@@ -82,7 +83,7 @@ export class CompareComponent implements OnInit, OnDestroy {
   isEmptyEscola = true;
 
   // tslint:disable-next-line: max-line-length
-  constructor(private escolaService: EscolaService, private statisticsService: StatisticsService, private locationService: LocationService, private enemService: EnemService) {
+  constructor(private escolaService: EscolaService, private statisticsService: StatisticsService, private locationService: LocationService, private enemService: EnemService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -137,7 +138,9 @@ export class CompareComponent implements OnInit, OnDestroy {
           this.escolaMedias = dadosMedias;
         },
         (err) => {
-          this.escolaMedias = undefined;
+        this.isEmptyEscola = false;
+        this.openSnackBar('Não foi possível carregar as informações. Tente novamente mais tarde.', 'Ok');
+        this.escolaMedias = undefined;
         }
     );
   }
@@ -267,6 +270,12 @@ export class CompareComponent implements OnInit, OnDestroy {
     this.mudarEstadoAtual(value.estado, value.uf);
     this.formCidadeControl.reset();
     this.formEscolaControl.reset();
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 4000,
+    });
   }
 
   destroySubscription(s: Subscription) {

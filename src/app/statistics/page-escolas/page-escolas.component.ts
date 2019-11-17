@@ -11,6 +11,7 @@ import { IMediasEnem } from 'src/app/shared/models/enem';
 import { ChartConf } from 'src/app/charts/charts.component';
 import { EscolaViewData, EscolaInfoData } from 'src/app/shared/models/escola';
 import { Subscription } from 'rxjs';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-page-escolas',
@@ -60,7 +61,8 @@ export class PageEscolasComponent implements OnInit, OnDestroy {
   constructor(
     private escolaService: EscolaService,
     private locationService: LocationService,
-    private enemService: EnemService) {
+    private enemService: EnemService,
+    private snackBar: MatSnackBar) {
    }
 
   ngOnInit() {
@@ -165,6 +167,8 @@ export class PageEscolasComponent implements OnInit, OnDestroy {
         };
       },
       (err) => {
+        this.isEmptyEscola = false;
+        this.openSnackBar('Não foi possível carregar as informações. Tente novamente mais tarde.', 'Ok');
         this.mediasEnem = undefined;
         this.barChartConf = undefined;
       }
@@ -238,6 +242,12 @@ export class PageEscolasComponent implements OnInit, OnDestroy {
   getEscolasPorCidade(cidade: string, estado: string) {
     this.escolas$ = this.escolaService.getEscolasWithFilters(cidade, estado).subscribe((dadosEscolas: IResponseEscola) => {
       this.escolas = dadosEscolas.data;
+    });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 4000,
     });
   }
 
