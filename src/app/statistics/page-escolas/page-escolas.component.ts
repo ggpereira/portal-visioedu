@@ -30,6 +30,8 @@ export class PageEscolasComponent implements OnInit, OnDestroy {
   escolaViewInfo = EscolaInfoData;
   objectKeys = Object.keys;
 
+  isEmptyEscola = true;
+
   mediasEnem: IMediasEnem;
   barChartConf: ChartConf;
   public colors = [
@@ -136,6 +138,7 @@ export class PageEscolasComponent implements OnInit, OnDestroy {
     this.mediasEnem$ = this.enemService.getMediaByCodEscola(this.escolaAtual.co_entidade)
       .subscribe(
         (data: IMediasEnem) => {
+        this.isEmptyEscola = false;
         this.mediasEnem = data;
         this.barChartConf = {
           title: 'Médias Enem',

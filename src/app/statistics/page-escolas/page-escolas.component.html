@@ -116,3 +116,9 @@
 
 
 <app-charts *ngIf="barChartConf" [chartConfig]="barChartConf" [colors]="colors"></app-charts>
+
+<ng-container *ngIf="isEmptyEscola">
+    <div style="text-align: center; padding-top: 25px">
+        <p class="isEmpty-info">Selecione um estado, uma cidade e insira o nome da escola desejada.</p>
+    </div>
+</ng-container>
