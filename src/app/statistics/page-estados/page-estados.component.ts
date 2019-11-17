@@ -7,6 +7,7 @@ import { EnemService } from 'src/app/services/enem.service';
 import { IMediasEnem } from 'src/app/shared/models/enem';
 import { StatisticsService } from 'src/app/services/statistics.service';
 import { IEstatisticasEstado } from 'src/app/shared/models/estatisticas';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-page-estados',
@@ -46,7 +47,8 @@ export class PageEstadosComponent implements OnInit, OnDestroy {
   constructor(
     private locationService: LocationService,
     private enemService: EnemService,
-    private estatisticasService: StatisticsService
+    private estatisticasService: StatisticsService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -224,6 +226,10 @@ export class PageEstadosComponent implements OnInit, OnDestroy {
           iconName: 'pie_chart'
         }
       ];
+    },
+    (error) => {
+      this.isLoadingEstado = false;
+      this.openSnackBar('Não foi possível carregar as informações. Tente novamente mais tarde.', 'Ok');
     });
   }
 
@@ -258,12 +264,22 @@ export class PageEstadosComponent implements OnInit, OnDestroy {
         },
         subHeader: nomeEstado
       };
+    },
+    (error) => {
+      this.isLoadingMedias = false;
+      this.openSnackBar('Não foi possível carregar as informações. Tente novamente mais tarde.', 'Ok');
     });
   }
 
   selectedStateValue(value) {
     this.getMediasEstado(value.estado);
     this.getDadosInfraestruturaEscolas(value.estado);
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 4000,
+    });
   }
 
   destroySubscription(s: Subscription) {

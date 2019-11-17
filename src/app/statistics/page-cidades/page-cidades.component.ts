@@ -10,6 +10,7 @@ import { EnemService } from 'src/app/services/enem.service';
 import { IMediasEnem } from 'src/app/shared/models/enem';
 import { ChartConf } from 'src/app/charts/charts.component';
 import { Subscription } from 'rxjs';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-page-cidades',
@@ -52,7 +53,8 @@ export class PageCidadesComponent implements OnInit, OnDestroy {
     private estatisticasService: StatisticsService,
     private locationService: LocationService,
     private enemService: EnemService,
-    ) { }
+    private snackBar: MatSnackBar
+  ) { }
 
   ngOnInit() {
 
@@ -243,6 +245,9 @@ export class PageCidadesComponent implements OnInit, OnDestroy {
           iconName: 'pie_chart'
         }
       ];
+    },(error) => {
+      this.isLoadingCidade = false;
+      this.openSnackBar('Não foi possível carregar as informações. Tente novamente mais tarde.', 'Ok');
     });
   }
 
@@ -277,7 +282,10 @@ export class PageCidadesComponent implements OnInit, OnDestroy {
         },
         subHeader: municipio
       };
-    });
+    },(error) => {
+        this.isLoadingMedias = false;
+        this.openSnackBar('Não foi possível carregar as informações. Tente novamente mais tarde.', 'Ok');
+      });
   }
 
   onSelection(value) {
@@ -288,6 +296,12 @@ export class PageCidadesComponent implements OnInit, OnDestroy {
   setCurrentStateValue(value) {
     this.currentStateName = value.estado;
     this.myControl.reset();
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 4000,
+    });
   }
 
   destroySubscription(s: Subscription) {
